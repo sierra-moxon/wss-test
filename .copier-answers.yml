@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier
+_commit: v0.4.2-22-g5ec9f94
+_src_path: gh:linkml/linkml-project-copier
+add_example: true
+copyright_year: '2026'
+email: smoxon@lbl.gov
+full_name: Sierra Moxon
+gh_action_docs_preview: true
+gh_action_pypi: true
+github_org: sierra-moxon
+license: MIT
+project_description: This is the project description.
+project_name: wss-test
+project_slug: wss_test
+
