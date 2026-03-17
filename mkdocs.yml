@@ -52,6 +52,7 @@ watch:
 nav:
   - Home: index.md
   - Schema: elements/index.md
+  - Mapping to BERtron: bertron_mapping.md
   - Examples: examples.md
   - Artifacts: artifacts.md
   - About: about.md
