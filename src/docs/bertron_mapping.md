@@ -2,34 +2,42 @@
 
 This page documents how each element in the wss-test schema maps to the
 [BERtron common data model](https://github.com/ber-data/bertron-schema).
-BERtron provides the foundational types (`Attribute`, `AttributeValue`,
-`QuantityValue`, `TextValue`); wss-test extends them with environmental
-measurement provenance and variable semantics.
+BERtron provides the foundational types (`DataCollection`, `Entity`, `Attribute`,
+`AttributeValue`, `QuantityValue`, `TextValue`); wss-test extends them with
+environmental measurement provenance and variable semantics.
 
 ## Class hierarchy
 
 ```
-bertron:Attribute               bertron:AttributeValue (abstract)
-  ├── id, label                   ├── attribute → Attribute
-  │                               ├── raw_value
-  └── wss:Variable                │
-      ├── id, label (inherited)   │
-      ├── + expression_basis      ├── bertron:QuantityValue
-      │                           │     ├── numeric_value, unit, unit_cv_id
-      │                           │     │
-      ├── + default_unit          │     └── wss:Measurement
-      └── + missing_value_code    │           ├── attribute → Variable (narrowed)
-                                  │           ├── + method_id
-                                  │           ├── + flag
-                                  │           ├── + datetime_measured
-                                  │           ├── + statistic
-                                  │           ├── + temporal_aggregation
-                                  │           ├── + reported_precision
-                                  │           └── + notes
-                                  │
-                                  └── bertron:TextValue
-                                        ├── value
-                                        └── value_cv_id
+ DATA FLOW                      BERTRON                          OBSERVATIONS
+ ─────────                      ───────                          ────────────
+
+ Dataset                        bertron:DataCollection           bertron:AttributeValue (abstract)
+ ├── variables[]                  ├── id, title, description       ├── attribute → Attribute
+ │   └── Variable                │                                ├── raw_value
+ │                                └── wss:Dataset                  │
+ └── samples[]                        ├── + variables[]            ├── bertron:QuantityValue
+     └── Sample                       └── + samples[]              │     ├── numeric_value
+         └── measurements[]                                        │     ├── unit, unit_cv_id
+             └── Measurement    bertron:Entity                     │     │
+                  └── attribute   ├── id, name, description        │     └── wss:Measurement
+                       └── Var.   ├── properties[]                 │           ├── attribute → Variable
+                                  │    └── AttributeValue          │           ├── + method_id
+                                  │                                │           ├── + flag
+                                  └── wss:Sample                   │           ├── + datetime_measured
+                                       ├── + site_code             │           ├── + statistic
+                                       ├── + medium                │           ├── + temporal_aggregation
+                                       ├── + replicate             │           ├── + reported_precision
+                                       └── + measurements[]        │           └── + notes
+                                                                   │
+                                  bertron:Attribute                └── bertron:TextValue
+                                    ├── id, label                        ├── value
+                                    │                                    └── value_cv_id
+                                    └── wss:Variable
+                                         ├── id, label (inherited)
+                                         ├── + expression_basis
+                                         ├── + default_unit
+                                         └── + missing_value_code
 ```
 
 Slots prefixed with **+** are wss-test additions that have no BERtron
@@ -45,8 +53,8 @@ equivalent.
 | `TextValue` | `bertron:TextValue` | exact mapping | Text value with optional CV term; is_a `AttributeValue` |
 | `Variable` | `bertron:Attribute` | extension | is_a `Attribute`; inherits `id` and `label`; adds expression_basis, default_unit, missing_value_code |
 | `Measurement` | `bertron:QuantityValue` | extension | is_a `QuantityValue`; adds method_id, flag, datetime_measured, statistic, temporal_aggregation, reported_precision, notes |
-| `Dataset` | *(none)* | wss-test only | Top-level container; no BERtron equivalent |
-| `Sample` | *(none)* | wss-test only | Physical sample with site provenance; no BERtron equivalent |
+| `Dataset` | `bertron:DataCollection` | mapping | Maps to DataCollection (`id`, `title`, `description`); adds `variables[]` and `samples[]` |
+| `Sample` | `bertron:Entity` | mapping | Maps to Entity (`id`, `name`, `properties[]`); replaces generic properties with typed `site_code`, `medium`, `replicate`, `measurements[]` |
 
 ## Slot mappings
 
@@ -98,9 +106,11 @@ These slots are added by wss-test and have **no BERtron equivalent**.
 | `reported_precision` | float | Precision of the reported result value |
 | `notes` | string | Free-text notes about the measurement |
 
-### Domain container slots (wss-test only)
+### Domain container slots
 
-These slots exist on `Dataset` and `Sample` and have no BERtron equivalent.
+These slots exist on `Dataset` (maps to `bertron:DataCollection`) and `Sample`
+(maps to `bertron:Entity`). The base BERtron classes provide `id`, `name`/`title`,
+and `description`; the slots below are wss-test additions.
 
 | Slot | Defined on | Range | Description |
 |------|------------|-------|-------------|
@@ -124,6 +134,7 @@ with the broader BERtron ecosystem.
 
 The extension pattern — `Variable is_a Attribute` and `Measurement is_a
 QuantityValue` — means that every wss-test Variable is a valid BERtron
-Attribute and every Measurement is a valid BERtron QuantityValue. Downstream
-consumers that only understand BERtron can safely ignore the additional
-wss-test slots.
+Attribute and every Measurement is a valid BERtron QuantityValue. Similarly,
+`Dataset` maps to `DataCollection` and `Sample` maps to `Entity`, providing
+BERtron-compatible containers for the data. Downstream consumers that only
+understand BERtron can safely ignore the additional wss-test slots.

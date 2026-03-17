@@ -13,9 +13,13 @@ variable semantics.
 
 The schema inherits base types from BERtron and extends them:
 
+- **Dataset** (maps to `bertron:DataCollection`) — top-level container, adding
+  `variables[]` and `samples[]` to group definitions and data together
+- **Sample** (maps to `bertron:Entity`) — replaces generic `properties[]` with typed
+  `site_code`, `medium`, `replicate`, and `measurements[]`
 - **Variable** (extends `bertron:Attribute`) — semantic definition of what is being measured.
   Inherits `label` from `bertron:Attribute` to name the variable, and adds
-  `expression_basis` and `default_unit`
+  `expression_basis`, `default_unit`, and `missing_value_code`
 - **Measurement** (extends `bertron:QuantityValue`) — a single measured value with full
   provenance, adding `method_id`, `flag`, `datetime_measured`, `statistic`,
   `temporal_aggregation`, `reported_precision`, and `notes`
@@ -24,14 +28,15 @@ The schema inherits base types from BERtron and extends them:
 
 | Concept | BERtron provides | wss-test adds |
 |---------|-----------------|---------------|
-| What was measured | `Attribute.label` (inherited by Variable) | `Variable.expression_basis` |
+| Data container | `DataCollection` (`id`, `title`, `description`) | `Dataset` + `variables[]`, `samples[]` |
+| Sample context | `Entity` (`id`, `name`, `properties[]`) | `Sample` + `site_code`, `.medium`, `.replicate`, `measurements[]` |
+| What was measured | `Attribute` (`id`, `label`) | `Variable` + `.expression_basis`, `.default_unit`, `.missing_value_code` |
 | How much | `QuantityValue.numeric_value`, `.unit` | — |
 | How it was measured | — | `Measurement.method_id` |
 | Quality | — | `Measurement.flag`, `.notes` |
 | When | — | `Measurement.datetime_measured` |
 | Aggregation | — | `Measurement.statistic`, `.temporal_aggregation` |
 | Precision | — | `Measurement.reported_precision` |
-| Sample context | Entity (`id`, `name`) | `Sample.site_code`, `.medium`, `.replicate` |
 
 ## Key Design Decision
 
