@@ -73,6 +73,8 @@ update: _update-template _update-linkml
 clean: _clean_project
   rm -rf tmp
   rm -rf {{docdir}}/*.md
+  rm -rf docs/examples
+  rm -rf docs/artifacts
 
 # (Re-)Generate project and documentation locally
 [group('model development')]
@@ -94,8 +96,10 @@ lint:
 
 # Generate md documentation for the schema and add artifacts
 [group('model development')]
-gen-doc: _gen-yaml && _add-artifacts
+gen-doc: _gen-yaml _copy-examples
   uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
+  @just _copy-docs
+  @just _copy-artifacts
 
 # Build docs and run test server
 [group('model development')]
@@ -207,8 +211,29 @@ _gen-yaml:
   -mkdir -p {{distrib_schema_path}}
   uv run gen-yaml {{source_schema_path}} > {{distrib_schema_path}}/{{schema_name}}.yaml
 
-# Overridable recipe to add project-specific artifacts to the distribution schema path
-_add-artifacts:
+# Copy example data files to docs directory for documentation site
+_copy-examples:
+  @echo "Copying example data files to docs..."
+  -mkdir -p docs/examples
+  cp tests/data/valid/*.yaml docs/examples/
+  @echo "Example files copied successfully!"
+
+# Copy static documentation files from src/docs to docs
+_copy-docs:
+  @echo "Copying static documentation files..."
+  cp src/docs/*.md docs/
+  @echo "Static docs copied successfully!"
+
+# Copy generated artifacts (jsonschema, excel, sqlddl, pydantic, python) to docs for the site
+_copy-artifacts:
+  @echo "Copying generated artifacts to docs..."
+  -mkdir -p docs/artifacts
+  cp {{dest}}/jsonschema/{{schema_name}}.schema.json docs/artifacts/
+  cp {{dest}}/excel/{{schema_name}}.xlsx docs/artifacts/
+  cp {{dest}}/sqlschema/{{schema_name}}.sql docs/artifacts/
+  cp {{pymodel}}/{{schema_name}}_pydantic.py docs/artifacts/
+  cp {{pymodel}}/{{schema_name}}.py docs/artifacts/
+  @echo "Artifacts copied successfully!"
 
 # Run documentation server
 _serve:
