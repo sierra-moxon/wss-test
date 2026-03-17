@@ -96,7 +96,7 @@ lint:
 
 # Generate md documentation for the schema and add artifacts
 [group('model development')]
-gen-doc: _gen-yaml _copy-examples
+gen-doc: gen-project _gen-yaml _copy-examples
   uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
   @just _copy-docs
   @just _copy-artifacts
