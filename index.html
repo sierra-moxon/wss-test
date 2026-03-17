@@ -634,22 +634,50 @@ base <code>Attribute</code> and <code>QuantityValue</code> types.</p>
 <p>The schema captures environmental water quality measurements in a validated, structured
 format — replacing flat spreadsheets with a model that separates <strong>what</strong> was measured
 from <strong>how</strong> and <strong>when</strong> it was measured.</p>
-<div class="highlight"><pre><span></span><code>Dataset
-├── variables[]          # Define once, reference many times
-│   └── Variable         # extends bertron:Attribute
-└── samples[]            # One per physical sample
-    └── Sample
-        └── measurements[]
-            └── Measurement  # extends bertron:QuantityValue
+<div class="highlight"><pre><span></span><code> DATA FLOW                      BERTRON                          OBSERVATIONS
+ ─────────                      ───────                          ────────────
+
+ Dataset                        bertron:DataCollection           bertron:AttributeValue (abstract)
+ ├── variables[]                  ├── id, title, description       ├── attribute → Attribute
+ │   └── Variable                │                                ├── raw_value
+ │                                └── wss:Dataset                  │
+ └── samples[]                        ├── + variables[]            ├── bertron:QuantityValue
+     └── Sample                       └── + samples[]              │     ├── numeric_value
+         └── measurements[]                                        │     ├── unit, unit_cv_id
+             └── Measurement    bertron:Entity                     │     │
+                  └── attribute   ├── id, name, description        │     └── wss:Measurement
+                       └── Var.   ├── properties[]                 │           ├── attribute → Variable
+                                  │    └── AttributeValue          │           ├── + method_id
+                                  │                                │           ├── + flag
+                                  └── wss:Sample                   │           ├── + datetime_measured
+                                       ├── + site_code             │           ├── + statistic
+                                       ├── + medium                │           ├── + temporal_aggregation
+                                       ├── + replicate             │           ├── + reported_precision
+                                       └── + measurements[]        │           └── + notes
+                                                                   │
+                                  bertron:Attribute                └── bertron:TextValue
+                                    ├── id, label                        ├── value
+                                    │                                    └── value_cv_id
+                                    └── wss:Variable
+                                         ├── id, label (inherited)
+                                         ├── + expression_basis
+                                         ├── + default_unit
+                                         └── + missing_value_code
 </code></pre></div>
+<p>The <strong>Data Flow</strong> column shows the wss-test containment hierarchy. The <strong>BERtron</strong>
+column shows the corresponding BERtron base types and how wss-test extends each one:
+<code>Dataset</code> maps to <code>DataCollection</code>, <code>Sample</code> maps to <code>Entity</code>, and <code>Variable</code> maps
+to <code>Attribute</code>. The <strong>Observations</strong> column shows BERtron's <code>AttributeValue</code> type
+tree — where <code>Measurement</code> (via <code>QuantityValue</code>) and <code>TextValue</code> live.</p>
 <ul>
+<li><strong>Dataset</strong> (maps to <code>bertron:DataCollection</code>) — top-level container, adding
+  <code>variables[]</code> and <code>samples[]</code></li>
 <li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of the analyte.
   Inherits <code>label</code> from Attribute to name the measured substance; adds
   expression basis, default unit, and missing value sentinel</li>
 <li><strong>Measurement</strong> (extends <code>bertron:QuantityValue</code>) — a single observed value with
   method, QC flag, timestamp, statistic, temporal aggregation, precision, and notes</li>
-<li><strong>Sample</strong> — site code, medium, replicate, and a list of measurements</li>
-<li><strong>Dataset</strong> — top-level container grouping variables and samples</li>
+<li><strong>Sample</strong> (maps to <code>bertron:Entity</code>) — site code, medium, replicate, and a list of measurements</li>
 </ul>
 <h2 id="key-design-choice">Key design choice</h2>
 <p>A variable like "dissolved oxygen" is defined <strong>once</strong>. Two analytical methods on the

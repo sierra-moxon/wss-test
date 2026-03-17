@@ -801,9 +801,13 @@ variable semantics.</p>
 <p><strong>BERtron defines the value containers; wss-test adds measurement provenance.</strong></p>
 <p>The schema inherits base types from BERtron and extends them:</p>
 <ul>
+<li><strong>Dataset</strong> (maps to <code>bertron:DataCollection</code>) — top-level container, adding
+  <code>variables[]</code> and <code>samples[]</code> to group definitions and data together</li>
+<li><strong>Sample</strong> (maps to <code>bertron:Entity</code>) — replaces generic <code>properties[]</code> with typed
+  <code>site_code</code>, <code>medium</code>, <code>replicate</code>, and <code>measurements[]</code></li>
 <li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of what is being measured.
   Inherits <code>label</code> from <code>bertron:Attribute</code> to name the variable, and adds
-  <code>expression_basis</code> and <code>default_unit</code></li>
+  <code>expression_basis</code>, <code>default_unit</code>, and <code>missing_value_code</code></li>
 <li><strong>Measurement</strong> (extends <code>bertron:QuantityValue</code>) — a single measured value with full
   provenance, adding <code>method_id</code>, <code>flag</code>, <code>datetime_measured</code>, <code>statistic</code>,
   <code>temporal_aggregation</code>, <code>reported_precision</code>, and <code>notes</code></li>
@@ -819,9 +823,19 @@ variable semantics.</p>
 </thead>
 <tbody>
 <tr>
+<td>Data container</td>
+<td><code>DataCollection</code> (<code>id</code>, <code>title</code>, <code>description</code>)</td>
+<td><code>Dataset</code> + <code>variables[]</code>, <code>samples[]</code></td>
+</tr>
+<tr>
+<td>Sample context</td>
+<td><code>Entity</code> (<code>id</code>, <code>name</code>, <code>properties[]</code>)</td>
+<td><code>Sample</code> + <code>site_code</code>, <code>.medium</code>, <code>.replicate</code>, <code>measurements[]</code></td>
+</tr>
+<tr>
 <td>What was measured</td>
-<td><code>Attribute.label</code> (inherited by Variable)</td>
-<td><code>Variable.expression_basis</code></td>
+<td><code>Attribute</code> (<code>id</code>, <code>label</code>)</td>
+<td><code>Variable</code> + <code>.expression_basis</code>, <code>.default_unit</code>, <code>.missing_value_code</code></td>
 </tr>
 <tr>
 <td>How much</td>
@@ -852,11 +866,6 @@ variable semantics.</p>
 <td>Precision</td>
 <td>—</td>
 <td><code>Measurement.reported_precision</code></td>
-</tr>
-<tr>
-<td>Sample context</td>
-<td>Entity (<code>id</code>, <code>name</code>)</td>
-<td><code>Sample.site_code</code>, <code>.medium</code>, <code>.replicate</code></td>
 </tr>
 </tbody>
 </table>
