@@ -12,14 +12,42 @@ format — replacing flat spreadsheets with a model that separates **what** was 
 from **how** and **when** it was measured.
 
 ```
-Dataset
-├── variables[]          # Define once, reference many times
-│   └── Variable         # extends bertron:Attribute
-└── samples[]            # One per physical sample
-    └── Sample
-        └── measurements[]
-            └── Measurement  # extends bertron:QuantityValue
+ DATA FLOW                      BERTRON                          OBSERVATIONS
+ ─────────                      ───────                          ────────────
+
+ Dataset                        bertron:DataCollection           bertron:AttributeValue (abstract)
+ ├── variables[]                  ├── id, title, description       ├── attribute → Attribute
+ │   └── Variable                │                                ├── raw_value
+ │                                └── wss:Dataset                  │
+ └── samples[]                        ├── + variables[]            ├── bertron:QuantityValue
+     └── Sample                       └── + samples[]              │     ├── numeric_value
+         └── measurements[]                                        │     ├── unit, unit_cv_id
+             └── Measurement    bertron:Entity                     │     │
+                  └── attribute   ├── id, name, description        │     └── wss:Measurement
+                       └── Var.   ├── properties[]                 │           ├── attribute → Variable
+                                  │    └── AttributeValue          │           ├── + method_id
+                                  │                                │           ├── + flag
+                                  └── wss:Sample                   │           ├── + datetime_measured
+                                       ├── + site_code             │           ├── + statistic
+                                       ├── + medium                │           ├── + temporal_aggregation
+                                       ├── + replicate             │           ├── + reported_precision
+                                       └── + measurements[]        │           └── + notes
+                                                                   │
+                                  bertron:Attribute                └── bertron:TextValue
+                                    ├── id, label                        ├── value
+                                    │                                    └── value_cv_id
+                                    └── wss:Variable
+                                         ├── id, label (inherited)
+                                         ├── + expression_basis
+                                         ├── + default_unit
+                                         └── + missing_value_code
 ```
+
+The **Data Flow** column shows the wss-test containment hierarchy. The **BERtron**
+column shows the corresponding BERtron base types and how wss-test extends each one:
+`Dataset` maps to `DataCollection`, `Sample` maps to `Entity`, and `Variable` maps
+to `Attribute`. The **Observations** column shows BERtron's `AttributeValue` type
+tree — where `Measurement` (via `QuantityValue`) and `TextValue` live.
 
 - **Variable** (extends `bertron:Attribute`) — semantic definition of the analyte:
   entity, property, expression basis, default unit, and missing value sentinel

@@ -58,6 +58,8 @@ classes:
     description: >-
       A collection of samples representing a coherent data delivery
       or analytical campaign.
+    mappings:
+      - bertron:DataCollection
     slots:
       - id
       - name
@@ -69,6 +71,8 @@ classes:
     description: >-
       A physical sample collected for analysis, identified by site,
       medium, and replicate.
+    mappings:
+      - bertron:Entity
     slots:
       - id
       - name
