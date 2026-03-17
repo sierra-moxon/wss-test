@@ -3,7 +3,9 @@ id: https://w3id.org/sierra-moxon/wss-test
 name: wss-test
 title: wss-test
 description: |-
-  This is the project description.
+  Schema for water sample measurements.
+  Extends BERtron common data model types (Attribute, QuantityValue)
+  with environmental measurement provenance and variable semantics.
 license: MIT
 see_also:
   - https://sierra-moxon.github.io/wss-test
@@ -11,88 +13,363 @@ see_also:
 prefixes:
   wss_test: https://w3id.org/sierra-moxon/wss-test/
   linkml: https://w3id.org/linkml/
-  biolink: https://w3id.org/biolink/vocab/
   schema: http://schema.org/
-  PATO: http://purl.obolibrary.org/obo/PATO_
-  example: http://www.example.org/rdf#
+  UO: http://purl.obolibrary.org/obo/UO_
+  ENVO: http://purl.obolibrary.org/obo/ENVO_
+  bertron: https://w3id.org/ber-data/bertron-schema/
+  nmdc: https://w3id.org/nmdc/
+  qud: http://qudt.org/1.1/schema/qudt#
 default_prefix: wss_test
 default_range: string
 
 imports:
   - linkml:types
 
+# =============================================================================
+# Class hierarchy and bertron mapping
+#
+#   bertron:Attribute          bertron:AttributeValue (abstract)
+#     id, label                  attribute → Attribute, raw_value
+#        |                              |
+#        v                              v
+#   wss:Variable               bertron:QuantityValue (is_a AttributeValue)
+#     + entity                   numeric_value, unit, unit_cv_id
+#     + property                        |
+#     + expression_basis                v
+#     + default_unit             wss:Measurement (is_a QuantityValue)
+#     + missing_value_code         attribute → Variable  (narrowed)
+#                                  + method_id
+#   Dataset                      + flag
+#     variables[]                + datetime_measured
+#     samples[]                  + statistic
+#       └── Sample               + temporal_aggregation
+#             measurements[]     + reported_precision
+#               └── Measurement  + notes
+#                     attribute → Variable (by reference)
+# =============================================================================
+
 classes:
 
-  NamedThing:
+  # ---------------------------------------------------------------------------
+  # Domain containers (no bertron equivalent)
+  # ---------------------------------------------------------------------------
+
+  Dataset:
+    tree_root: true
     description: >-
-      A generic grouping for any identifiable entity
+      A collection of samples representing a coherent data delivery
+      or analytical campaign.
     slots:
       - id
       - name
       - description
-    class_uri: schema:Thing
+      - variables
+      - samples
 
-  Person:
-    is_a: NamedThing
+  Sample:
     description: >-
-      Represents a Person
+      A physical sample collected for analysis, identified by site,
+      medium, and replicate.
     slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
-    slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
+      - id
+      - name
+      - site_code
+      - medium
+      - replicate
+      - measurements
 
-  PersonCollection:
-    tree_root: true
+  # ---------------------------------------------------------------------------
+  # Bertron base types (mirrored with mappings, not imported)
+  # ---------------------------------------------------------------------------
+
+  AttributeValue:
+    abstract: true
+    class_uri: nmdc:AttributeValue
     description: >-
-      A holder for Person objects
-    attributes:
-      people:
-        range: Person
-        multivalued: true
-        inlined_as_list: true
+      The value for any value of attribute for an entity.
+      This object can hold both the un-normalized atomic
+      value and the structured value.
+    mappings:
+      - bertron:AttributeValue
+    slots:
+      - attribute
+      - raw_value
+
+  Attribute:
+    description: >-
+      A domain, measurement, attribute, property, or any
+      descriptor for additional properties.  Where available,
+      please use OBO Foundry ontologies or other controlled
+      vocabularies for attributes.
+    mappings:
+      - bertron:Attribute
+    slots:
+      - id
+      - label
+
+  QuantityValue:
+    class_uri: nmdc:QuantityValue
+    is_a: AttributeValue
+    description: >-
+      A simple quantity, e.g. 2cm.
+    mappings:
+      - schema:QuantityValue
+      - bertron:QuantityValue
+    slots:
+      - numeric_value
+      - unit
+      - unit_cv_id
+
+  TextValue:
+    class_uri: nmdc:TextValue
+    is_a: AttributeValue
+    description: >-
+      A quality, described using a text string.
+    mappings:
+      - bertron:TextValue
+    slots:
+      - value
+      - value_cv_id
+
+  # ---------------------------------------------------------------------------
+  # wss-test extensions
+  # ---------------------------------------------------------------------------
+
+  Variable:
+    is_a: Attribute
+    description: >-
+      Semantic definition of a measured environmental variable.
+      Extends bertron Attribute with structured variable metadata
+      (entity, property, expression basis).  Defined once per
+      variable and referenced by Measurements.
+    slots:
+      - entity
+      - property
+      - expression_basis
+      - default_unit
+      - missing_value_code
+    slot_usage:
+      id:
+        identifier: true
+        required: true
+        description: >-
+          Canonical identifier for this variable
+          (e.g. carbon_dissolved_organic).
+
+  Measurement:
+    is_a: QuantityValue
+    description: >-
+      A single measured value for a variable on a sample, with
+      full provenance including method, QC flags, timestamps,
+      and aggregation metadata.  Extends bertron QuantityValue
+      with measurement-specific context.
+    slots:
+      - method_id
+      - flag
+      - datetime_measured
+      - statistic
+      - temporal_aggregation
+      - reported_precision
+      - notes
+    slot_usage:
+      attribute:
+        range: Variable
+        description: >-
+          The variable being measured, as a reference to a
+          Variable definition.
+      numeric_value:
+        required: true
+        aliases:
+          - result_value
+      unit:
+        required: true
 
 slots:
+
+  # -- shared identifiers ----------------------------------------------------
+
   id:
     identifier: true
-    slot_uri: schema:identifier
-    range: uriorcurie
-    description: A unique identifier for a thing
+    description: >-
+      A unique identifier.
+    range: string
+    required: true
   name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
+    description: >-
+      A human-readable name.
+    range: string
   description:
-    slot_uri: schema:description
-    description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+    description: >-
+      A free-text description.
+    range: string
+  label:
+    description: >-
+      Text string to describe the attribute.
+    aliases:
+      - title
+    range: string
+    required: true
 
-enums:
-  PersonStatus:
-    description:
-      The vital status of a person
-    permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+  # -- sample provenance -----------------------------------------------------
+
+  site_code:
+    description: >-
+      Code identifying the sampling site (e.g. CM_003, CM_004).
+    range: string
+  medium:
+    description: >-
+      The environmental medium or matrix sampled
+      (e.g. OCN for ocean water).
+    range: string
+  replicate:
+    description: >-
+      Replicate number within a site and medium.
+    range: integer
+
+  # -- collection slots -------------------------------------------------------
+
+  variables:
+    description: >-
+      Variable definitions used by measurements in this dataset.
+    range: Variable
+    multivalued: true
+    inlined_as_list: true
+  samples:
+    description: >-
+      The samples included in this dataset.
+    range: Sample
+    multivalued: true
+    inlined_as_list: true
+  measurements:
+    description: >-
+      The measurements performed on this sample.
+    range: Measurement
+    multivalued: true
+    inlined_as_list: true
+
+  # -- bertron AttributeValue slots -------------------------------------------
+
+  attribute:
+    description: >-
+      The attribute being represented.
+    range: Attribute
+    required: true
+    mappings:
+      - bertron:attribute
+  raw_value:
+    description: >-
+      The value that was specified for an annotation in raw form,
+      i.e. a string. E.g. "2 cm" or "2-4 cm"
+    range: string
+    mappings:
+      - nmdc:raw_value
+      - bertron:raw_value
+
+  # -- bertron QuantityValue slots --------------------------------------------
+
+  numeric_value:
+    description: >-
+      The numerical part of a quantity value.
+    aliases:
+      - result_value
+    range: float
+    mappings:
+      - nmdc:numeric_value
+      - qud:quantityValue
+      - schema:value
+      - bertron:numeric_value
+  unit:
+    description: >-
+      Unit of measurement, ideally as a Unit Ontology CURIE.
+    range: string
+    mappings:
+      - nmdc:unit
+      - qud:unit
+      - schema:unitCode
+      - UO:0000000
+      - bertron:unit
+  unit_cv_id:
+    description: >-
+      The unit of the quantity, expressed as a CURIE from
+      the Unit Ontology.
+    range: curie
+    mappings:
+      - bertron:unit_cv_id
+
+  # -- bertron TextValue slots ------------------------------------------------
+
+  value:
+    description: >-
+      The value, as a text string.
+    range: string
+    mappings:
+      - bertron:value
+  value_cv_id:
+    description: >-
+      For values that are in a controlled vocabulary (CV),
+      this attribute should capture the controlled vocabulary
+      ID for the value.
+    range: curie
+    mappings:
+      - bertron:value_cv_id
+
+  # -- Variable-specific slots (wss-test additions to Attribute) --------------
+
+  entity:
+    description: >-
+      The substance or thing being measured
+      (e.g. dissolved organic carbon).
+    range: string
+  property:
+    description: >-
+      The property being measured (e.g. concentration).
+    range: string
+  expression_basis:
+    description: >-
+      The chemical expression basis
+      (e.g. as dissolved carbon).
+    range: string
+  default_unit:
+    description: >-
+      Default unit for this variable, ideally as a Unit
+      Ontology CURIE.
+    range: string
+  missing_value_code:
+    description: >-
+      The sentinel value used to represent missing data
+      for this variable.
+    range: integer
+
+  # -- Measurement-specific slots (wss-test additions to QuantityValue) -------
+
+  method_id:
+    description: >-
+      Identifier for the analytical method used to produce
+      the measurement.
+    range: string
+  flag:
+    description: >-
+      Quality assurance flag associated with the measurement.
+    range: string
+  datetime_measured:
+    description: >-
+      Date and time when the measurement was taken.
+    range: datetime
+  statistic:
+    description: >-
+      The summary statistic applied to the measurement, if any
+      (e.g. mean, median).
+    range: string
+  temporal_aggregation:
+    description: >-
+      The time interval over which the statistic was aggregated
+      (e.g. daily, 15-min).
+    range: string
+  reported_precision:
+    description: >-
+      The precision of the reported result value.
+    range: float
+  notes:
+    description: >-
+      Free-text notes about the measurement.
+    range: string
