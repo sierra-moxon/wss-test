@@ -1,5 +1,9 @@
 name: wss-test
-description: This is the project description.
+description: 'Schema for water sample measurements.
+
+  Extends BERtron common data model types (Attribute, QuantityValue)
+
+  with environmental measurement provenance and variable semantics.'
 title: wss-test
 see_also:
 - https://sierra-moxon.github.io/wss-test
@@ -14,18 +18,24 @@ prefixes:
   linkml:
     prefix_prefix: linkml
     prefix_reference: https://w3id.org/linkml/
-  biolink:
-    prefix_prefix: biolink
-    prefix_reference: https://w3id.org/biolink/vocab/
   schema:
     prefix_prefix: schema
     prefix_reference: http://schema.org/
-  PATO:
-    prefix_prefix: PATO
-    prefix_reference: http://purl.obolibrary.org/obo/PATO_
-  example:
-    prefix_prefix: example
-    prefix_reference: http://www.example.org/rdf#
+  UO:
+    prefix_prefix: UO
+    prefix_reference: http://purl.obolibrary.org/obo/UO_
+  ENVO:
+    prefix_prefix: ENVO
+    prefix_reference: http://purl.obolibrary.org/obo/ENVO_
+  bertron:
+    prefix_prefix: bertron
+    prefix_reference: https://w3id.org/ber-data/bertron-schema/
+  nmdc:
+    prefix_prefix: nmdc
+    prefix_reference: https://w3id.org/nmdc/
+  qud:
+    prefix_prefix: qud
+    prefix_reference: http://qudt.org/1.1/schema/qudt#
 default_prefix: wss_test
 default_range: string
 types:
@@ -297,189 +307,572 @@ types:
     base: str
     uri: xsd:string
     repr: str
-enums:
-  PersonStatus:
-    name: PersonStatus
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/PersonStatus
-    description: The vital status of a person
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    permissible_values:
-      ALIVE:
-        text: ALIVE
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        text: DEAD
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        text: UNKNOWN
-        description: the vital status is not known
-        todos:
-        - map this to an ontology
 slots:
   id:
     name: id
     definition_uri: https://w3id.org/sierra-moxon/wss-test/id
-    description: A unique identifier for a thing
+    description: A unique identifier.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:identifier
-    slot_uri: schema:identifier
+    slot_uri: wss_test:id
     identifier: true
-    owner: NamedThing
+    owner: Attribute
     domain_of:
-    - NamedThing
-    range: uriorcurie
+    - Dataset
+    - Sample
+    - Attribute
+    range: string
     required: true
   name:
     name: name
     definition_uri: https://w3id.org/sierra-moxon/wss-test/name
-    description: A human-readable name for a thing
+    description: A human-readable name.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:name
-    slot_uri: schema:name
-    owner: NamedThing
+    slot_uri: wss_test:name
+    owner: Sample
     domain_of:
-    - NamedThing
+    - Dataset
+    - Sample
     range: string
   description:
     name: description
     definition_uri: https://w3id.org/sierra-moxon/wss-test/description
-    description: A human-readable description for a thing
+    description: A free-text description.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:description
-    slot_uri: schema:description
-    owner: NamedThing
+    slot_uri: wss_test:description
+    owner: Dataset
     domain_of:
-    - NamedThing
+    - Dataset
     range: string
-  primary_email:
-    name: primary_email
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/primary_email
-    description: The main email address of a person
+  label:
+    name: label
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/label
+    description: Text string to describe the attribute.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:email
-    slot_uri: schema:email
-    owner: Person
+    aliases:
+    - title
+    slot_uri: wss_test:label
+    owner: Attribute
     domain_of:
-    - Person
+    - Attribute
     range: string
-  birth_date:
-    name: birth_date
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/birth_date
-    description: Date on which a person is born
+    required: true
+  site_code:
+    name: site_code
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/site_code
+    description: Code identifying the sampling site (e.g. CM_003, CM_004).
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:birthDate
-    slot_uri: schema:birthDate
-    owner: Person
+    slot_uri: wss_test:site_code
+    owner: Sample
     domain_of:
-    - Person
-    range: date
-  age_in_years:
-    name: age_in_years
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/age_in_years
-    description: Number of years since birth
+    - Sample
+    range: string
+  medium:
+    name: medium
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/medium
+    description: The environmental medium or matrix sampled (e.g. OCN for ocean water).
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    slot_uri: wss_test:age_in_years
-    owner: Person
+    slot_uri: wss_test:medium
+    owner: Sample
     domain_of:
-    - Person
+    - Sample
+    range: string
+  replicate:
+    name: replicate
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/replicate
+    description: Replicate number within a site and medium.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:replicate
+    owner: Sample
+    domain_of:
+    - Sample
     range: integer
-  vital_status:
-    name: vital_status
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/vital_status
-    description: living or dead status
+  variables:
+    name: variables
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/variables
+    description: Variable definitions used by measurements in this dataset.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    slot_uri: wss_test:vital_status
-    owner: Person
+    slot_uri: wss_test:variables
+    owner: Dataset
     domain_of:
-    - Person
-    range: PersonStatus
-  personCollection__people:
-    name: personCollection__people
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    slot_uri: wss_test:people
-    alias: people
-    owner: PersonCollection
-    domain_of:
-    - PersonCollection
-    range: Person
+    - Dataset
+    range: Variable
     multivalued: true
     inlined: true
     inlined_as_list: true
-  Person_primary_email:
-    name: Person_primary_email
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/primary_email
-    description: The main email address of a person
+  samples:
+    name: samples
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/samples
+    description: The samples included in this dataset.
     from_schema: https://w3id.org/sierra-moxon/wss-test
-    mappings:
-    - schema:email
-    is_a: primary_email
-    domain: Person
-    slot_uri: schema:email
-    alias: primary_email
-    owner: Person
+    slot_uri: wss_test:samples
+    owner: Dataset
     domain_of:
-    - Person
-    is_usage_slot: true
-    usage_slot_name: primary_email
-    range: string
-    pattern: ^\S+@[\S+\.]+\S+
-classes:
-  NamedThing:
-    name: NamedThing
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/NamedThing
-    description: A generic grouping for any identifiable entity
+    - Dataset
+    range: Sample
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  measurements:
+    name: measurements
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/measurements
+    description: The measurements performed on this sample.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:measurements
+    owner: Sample
+    domain_of:
+    - Sample
+    range: Measurement
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  attribute:
+    name: attribute
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/attribute
+    description: The attribute being represented.
     from_schema: https://w3id.org/sierra-moxon/wss-test
     mappings:
-    - schema:Thing
+    - bertron:attribute
+    slot_uri: wss_test:attribute
+    owner: AttributeValue
+    domain_of:
+    - AttributeValue
+    range: Attribute
+    required: true
+  raw_value:
+    name: raw_value
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/raw_value
+    description: The value that was specified for an annotation in raw form, i.e.
+      a string. E.g. "2 cm" or "2-4 cm"
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:raw_value
+    - bertron:raw_value
+    slot_uri: wss_test:raw_value
+    owner: AttributeValue
+    domain_of:
+    - AttributeValue
+    range: string
+  numeric_value:
+    name: numeric_value
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/numeric_value
+    description: The numerical part of a quantity value.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    aliases:
+    - result_value
+    mappings:
+    - nmdc:numeric_value
+    - qud:quantityValue
+    - schema:value
+    - bertron:numeric_value
+    slot_uri: wss_test:numeric_value
+    owner: QuantityValue
+    domain_of:
+    - QuantityValue
+    range: float
+  unit:
+    name: unit
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/unit
+    description: Unit of measurement, ideally as a Unit Ontology CURIE.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:unit
+    - qud:unit
+    - schema:unitCode
+    - UO:0000000
+    - bertron:unit
+    slot_uri: wss_test:unit
+    owner: QuantityValue
+    domain_of:
+    - QuantityValue
+    range: string
+  unit_cv_id:
+    name: unit_cv_id
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/unit_cv_id
+    description: The unit of the quantity, expressed as a CURIE from the Unit Ontology.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:unit_cv_id
+    slot_uri: wss_test:unit_cv_id
+    owner: QuantityValue
+    domain_of:
+    - QuantityValue
+    range: curie
+  value:
+    name: value
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/value
+    description: The value, as a text string.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:value
+    slot_uri: wss_test:value
+    owner: TextValue
+    domain_of:
+    - TextValue
+    range: string
+  value_cv_id:
+    name: value_cv_id
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/value_cv_id
+    description: For values that are in a controlled vocabulary (CV), this attribute
+      should capture the controlled vocabulary ID for the value.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:value_cv_id
+    slot_uri: wss_test:value_cv_id
+    owner: TextValue
+    domain_of:
+    - TextValue
+    range: curie
+  entity:
+    name: entity
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/entity
+    description: The substance or thing being measured (e.g. dissolved organic carbon).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:entity
+    owner: Variable
+    domain_of:
+    - Variable
+    range: string
+  property:
+    name: property
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/property
+    description: The property being measured (e.g. concentration).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:property
+    owner: Variable
+    domain_of:
+    - Variable
+    range: string
+  expression_basis:
+    name: expression_basis
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/expression_basis
+    description: The chemical expression basis (e.g. as dissolved carbon).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:expression_basis
+    owner: Variable
+    domain_of:
+    - Variable
+    range: string
+  default_unit:
+    name: default_unit
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/default_unit
+    description: Default unit for this variable, ideally as a Unit Ontology CURIE.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:default_unit
+    owner: Variable
+    domain_of:
+    - Variable
+    range: string
+  missing_value_code:
+    name: missing_value_code
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/missing_value_code
+    description: The sentinel value used to represent missing data for this variable.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:missing_value_code
+    owner: Variable
+    domain_of:
+    - Variable
+    range: integer
+  method_id:
+    name: method_id
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/method_id
+    description: Identifier for the analytical method used to produce the measurement.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:method_id
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: string
+  flag:
+    name: flag
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/flag
+    description: Quality assurance flag associated with the measurement.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:flag
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: string
+  datetime_measured:
+    name: datetime_measured
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/datetime_measured
+    description: Date and time when the measurement was taken.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:datetime_measured
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: datetime
+  statistic:
+    name: statistic
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/statistic
+    description: The summary statistic applied to the measurement, if any (e.g. mean,
+      median).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:statistic
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: string
+  temporal_aggregation:
+    name: temporal_aggregation
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/temporal_aggregation
+    description: The time interval over which the statistic was aggregated (e.g. daily,
+      15-min).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:temporal_aggregation
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: string
+  reported_precision:
+    name: reported_precision
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/reported_precision
+    description: The precision of the reported result value.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:reported_precision
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: float
+  notes:
+    name: notes
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/notes
+    description: Free-text notes about the measurement.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slot_uri: wss_test:notes
+    owner: Measurement
+    domain_of:
+    - Measurement
+    range: string
+  Variable_id:
+    name: Variable_id
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/id
+    description: Canonical identifier for this variable (e.g. carbon_dissolved_organic).
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    is_a: id
+    domain: Variable
+    slot_uri: wss_test:id
+    identifier: true
+    alias: id
+    owner: Variable
+    domain_of:
+    - Variable
+    is_usage_slot: true
+    usage_slot_name: id
+    range: string
+    required: true
+  Measurement_attribute:
+    name: Measurement_attribute
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/attribute
+    description: The variable being measured, as a reference to a Variable definition.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:attribute
+    is_a: attribute
+    domain: Measurement
+    slot_uri: wss_test:attribute
+    alias: attribute
+    owner: Measurement
+    domain_of:
+    - Measurement
+    is_usage_slot: true
+    usage_slot_name: attribute
+    range: Variable
+    required: true
+  Measurement_numeric_value:
+    name: Measurement_numeric_value
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/numeric_value
+    description: The numerical part of a quantity value.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    aliases:
+    - result_value
+    mappings:
+    - nmdc:numeric_value
+    - qud:quantityValue
+    - schema:value
+    - bertron:numeric_value
+    is_a: numeric_value
+    domain: Measurement
+    slot_uri: wss_test:numeric_value
+    alias: numeric_value
+    owner: Measurement
+    domain_of:
+    - Measurement
+    is_usage_slot: true
+    usage_slot_name: numeric_value
+    range: float
+    required: true
+  Measurement_unit:
+    name: Measurement_unit
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/unit
+    description: Unit of measurement, ideally as a Unit Ontology CURIE.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:unit
+    - qud:unit
+    - schema:unitCode
+    - UO:0000000
+    - bertron:unit
+    is_a: unit
+    domain: Measurement
+    slot_uri: wss_test:unit
+    alias: unit
+    owner: Measurement
+    domain_of:
+    - Measurement
+    is_usage_slot: true
+    usage_slot_name: unit
+    range: string
+    required: true
+classes:
+  Dataset:
+    name: Dataset
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/Dataset
+    description: A collection of samples representing a coherent data delivery or
+      analytical campaign.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
     slots:
     - id
     - name
     - description
-    class_uri: schema:Thing
-  Person:
-    name: Person
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/Person
-    description: Represents a Person
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    is_a: NamedThing
-    slots:
-    - id
-    - name
-    - description
-    - Person_primary_email
-    - birth_date
-    - age_in_years
-    - vital_status
-    slot_usage:
-      primary_email:
-        name: primary_email
-        pattern: ^\S+@[\S+\.]+\S+
-    class_uri: wss_test:Person
-  PersonCollection:
-    name: PersonCollection
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/PersonCollection
-    description: A holder for Person objects
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    slots:
-    - personCollection__people
-    attributes:
-      people:
-        name: people
-        range: Person
-        multivalued: true
-        inlined_as_list: true
-    class_uri: wss_test:PersonCollection
+    - variables
+    - samples
+    class_uri: wss_test:Dataset
     tree_root: true
+  Sample:
+    name: Sample
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/Sample
+    description: A physical sample collected for analysis, identified by site, medium,
+      and replicate.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    slots:
+    - id
+    - name
+    - site_code
+    - medium
+    - replicate
+    - measurements
+    class_uri: wss_test:Sample
+  AttributeValue:
+    name: AttributeValue
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/AttributeValue
+    description: The value for any value of attribute for an entity. This object can
+      hold both the un-normalized atomic value and the structured value.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:AttributeValue
+    - bertron:AttributeValue
+    abstract: true
+    slots:
+    - attribute
+    - raw_value
+    class_uri: nmdc:AttributeValue
+  Attribute:
+    name: Attribute
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/Attribute
+    description: A domain, measurement, attribute, property, or any descriptor for
+      additional properties.  Where available, please use OBO Foundry ontologies or
+      other controlled vocabularies for attributes.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:Attribute
+    slots:
+    - id
+    - label
+    class_uri: wss_test:Attribute
+  QuantityValue:
+    name: QuantityValue
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/QuantityValue
+    description: A simple quantity, e.g. 2cm.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:QuantityValue
+    - schema:QuantityValue
+    - bertron:QuantityValue
+    is_a: AttributeValue
+    slots:
+    - attribute
+    - raw_value
+    - numeric_value
+    - unit
+    - unit_cv_id
+    class_uri: nmdc:QuantityValue
+  TextValue:
+    name: TextValue
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/TextValue
+    description: A quality, described using a text string.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - nmdc:TextValue
+    - bertron:TextValue
+    is_a: AttributeValue
+    slots:
+    - attribute
+    - raw_value
+    - value
+    - value_cv_id
+    class_uri: nmdc:TextValue
+  Variable:
+    name: Variable
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/Variable
+    description: Semantic definition of a measured environmental variable. Extends
+      bertron Attribute with structured variable metadata (entity, property, expression
+      basis).  Defined once per variable and referenced by Measurements.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    is_a: Attribute
+    slots:
+    - label
+    - entity
+    - property
+    - expression_basis
+    - default_unit
+    - missing_value_code
+    - Variable_id
+    slot_usage:
+      id:
+        name: id
+        description: Canonical identifier for this variable (e.g. carbon_dissolved_organic).
+        identifier: true
+        required: true
+    class_uri: wss_test:Variable
+  Measurement:
+    name: Measurement
+    definition_uri: https://w3id.org/sierra-moxon/wss-test/Measurement
+    description: A single measured value for a variable on a sample, with full provenance
+      including method, QC flags, timestamps, and aggregation metadata.  Extends bertron
+      QuantityValue with measurement-specific context.
+    from_schema: https://w3id.org/sierra-moxon/wss-test
+    is_a: QuantityValue
+    slots:
+    - raw_value
+    - unit_cv_id
+    - method_id
+    - flag
+    - datetime_measured
+    - statistic
+    - temporal_aggregation
+    - reported_precision
+    - notes
+    - Measurement_attribute
+    - Measurement_numeric_value
+    - Measurement_unit
+    slot_usage:
+      attribute:
+        name: attribute
+        description: The variable being measured, as a reference to a Variable definition.
+        range: Variable
+      numeric_value:
+        name: numeric_value
+        aliases:
+        - result_value
+        required: true
+      unit:
+        name: unit
+        required: true
+    class_uri: wss_test:Measurement
 metamodel_version: 1.7.0
 source_file: wss_test.yaml
-source_file_date: '2026-03-16T17:27:46'
-source_file_size: 2238
-generation_date: '2026-03-16T17:27:57'
+source_file_date: '2026-03-17T00:35:29'
+source_file_size: 10277
+generation_date: '2026-03-17T00:35:38'
 

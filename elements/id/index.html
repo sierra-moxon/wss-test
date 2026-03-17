@@ -486,8 +486,8 @@
 
 
 <h1 id="slot-id">Slot: id</h1>
-<p><em>A unique identifier for a thing</em></p>
-<p>URI: <a href="http://schema.org/identifier">schema:identifier</a>
+<p><em>A unique identifier.</em></p>
+<p>URI: <a href="https://w3id.org/sierra-moxon/wss-test/id">wss_test:id</a>
 Alias: id</p>
 <!-- no inheritance hierarchy -->
 
@@ -502,13 +502,23 @@ Alias: id</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../NamedThing/">NamedThing</a></td>
-<td>A generic grouping for any identifiable entity</td>
+<td><a href="../Dataset/">Dataset</a></td>
+<td>A collection of samples representing a coherent data delivery or analytical c...</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Person/">Person</a></td>
-<td>Represents a Person</td>
+<td><a href="../Attribute/">Attribute</a></td>
+<td>A domain, measurement, attribute, property, or any descriptor for additional ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Variable/">Variable</a></td>
+<td>Semantic definition of a measured environmental variable</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><a href="../Sample/">Sample</a></td>
+<td>A physical sample collected for analysis, identified by site, medium, and rep...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -525,15 +535,11 @@ Alias: id</p>
 <tbody>
 <tr>
 <td>Range</td>
-<td><a href="../Uriorcurie/">Uriorcurie</a></td>
+<td><a href="../String/">String</a></td>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../NamedThing/">NamedThing</a></td>
-</tr>
-<tr>
-<td>Slot URI</td>
-<td><a href="http://schema.org/identifier">schema:identifier</a></td>
+<td><a href="../Dataset/">Dataset</a>, <a href="../Sample/">Sample</a>, <a href="../Attribute/">Attribute</a></td>
 </tr>
 </tbody>
 </table>
@@ -586,7 +592,7 @@ Alias: id</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:identifier</td>
+<td>wss_test:id</td>
 </tr>
 <tr>
 <td>native</td>
@@ -597,15 +603,16 @@ Alias: id</p>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A unique identifier for a thing</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A unique identifier.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/wss-test</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema:identifier</span>
 <span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
 <span class="nt">domain_of</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NamedThing</span>
-<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uriorcurie</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dataset</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sample</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Attribute</span>
+<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 </details>

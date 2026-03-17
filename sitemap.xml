@@ -2,142 +2,242 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/about/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/Attribute/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/AttributeValue/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Boolean/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Curie/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/Dataset/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Date/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/DateOrDatetime/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Datetime/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Decimal/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Double/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Float/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Integer/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Jsonpath/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Jsonpointer/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/NamedThing/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/Measurement/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Ncname/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Nodeidentifier/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Objectidentifier/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/Person/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/QuantityValue/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/PersonCollection/</loc>
-         <lastmod>2026-03-16</lastmod>
-    </url>
-    <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/PersonStatus/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/Sample/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Sparqlpath/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/String/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/TextValue/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Time/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Uri/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/Uriorcurie/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/age_in_years/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/Variable/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/birth_date/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/attribute/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/datetime_measured/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/default_unit/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/description/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/entity/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/expression_basis/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/flag/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/id/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/label/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/measurements/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/medium/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/method_id/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/missing_value_code/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/name/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/people/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/notes/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/primary_email/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/numeric_value/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
-         <loc>https://sierra-moxon.github.io/wss-test/elements/vital_status/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/property/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/raw_value/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/replicate/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/reported_precision/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/samples/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/site_code/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/statistic/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/temporal_aggregation/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/unit/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/unit_cv_id/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/value/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/value_cv_id/</loc>
+         <lastmod>2026-03-17</lastmod>
+    </url>
+    <url>
+         <loc>https://sierra-moxon.github.io/wss-test/elements/variables/</loc>
+         <lastmod>2026-03-17</lastmod>
     </url>
     <url>
          <loc>https://sierra-moxon.github.io/wss-test/elements/wss-test/</loc>
-         <lastmod>2026-03-16</lastmod>
+         <lastmod>2026-03-17</lastmod>
     </url>
 </urlset>
