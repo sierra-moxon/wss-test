@@ -70,6 +70,7 @@ Dataset
 ## Variable Definitions
 
 Variables are defined once in the `variables` list and referenced by every measurement.
+The `label` slot is inherited from `bertron:Attribute` and names the measured substance.
 This eliminates duplication — "dissolved oxygen" is defined once regardless of how many
 methods measure it.
 
@@ -77,24 +78,18 @@ methods measure it.
 variables:
   - id: carbon_dissolved_organic
     label: dissolved organic carbon
-    entity: dissolved organic carbon
-    property: concentration
     expression_basis: as dissolved carbon
     default_unit: UO:0000175        # mg/L
     missing_value_code: -9999
 
   - id: nitrogen_total_dissolved
     label: total dissolved nitrogen
-    entity: dissolved nitrogen
-    property: concentration
     expression_basis: as dissolved nitrogen
     default_unit: UO:0000175
     missing_value_code: -9999
 
   - id: dissolved_oxygen
     label: dissolved oxygen
-    entity: oxygen
-    property: concentration
     expression_basis: as dissolved oxygen
     default_unit: UO:0000175
     missing_value_code: -9999
@@ -209,7 +204,7 @@ The example dataset (`Dataset-001.yaml`) contains:
 ## What This Buys You
 
 1. **Every slot traces to BERtron or is explicitly new** — no ambiguity about what is inherited vs. added
-2. **Variable = Attribute + domain semantics** — BERtron consumers see a valid Attribute; domain consumers get entity/property/expression_basis
+2. **Variable = Attribute + domain semantics** — `label` is inherited from `bertron:Attribute`; domain consumers additionally get expression_basis
 3. **Measurement = QuantityValue + provenance** — BERtron consumers see a valid QuantityValue; domain consumers get method, QC, timestamps
 4. **Two DO methods on CM_005 are distinguishable** — same attribute (`dissolved_oxygen`), different `method_id`
 5. **3 Variables instead of 5 MeasurementSpecifications** — no more duplicating variable definitions per method

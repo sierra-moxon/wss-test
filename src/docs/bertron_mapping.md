@@ -13,9 +13,10 @@ bertron:Attribute               bertron:AttributeValue (abstract)
   ├── id, label                   ├── attribute → Attribute
   │                               ├── raw_value
   └── wss:Variable                │
-      ├── + entity                ├── bertron:QuantityValue
-      ├── + property              │     ├── numeric_value, unit, unit_cv_id
-      ├── + expression_basis      │     │
+      ├── id, label (inherited)   │
+      ├── + expression_basis      ├── bertron:QuantityValue
+      │                           │     ├── numeric_value, unit, unit_cv_id
+      │                           │     │
       ├── + default_unit          │     └── wss:Measurement
       └── + missing_value_code    │           ├── attribute → Variable (narrowed)
                                   │           ├── + method_id
@@ -42,7 +43,7 @@ equivalent.
 | `AttributeValue` | `bertron:AttributeValue` | exact mapping | Abstract base for all value types |
 | `QuantityValue` | `bertron:QuantityValue` | exact mapping | Numeric value with unit; is_a `AttributeValue` |
 | `TextValue` | `bertron:TextValue` | exact mapping | Text value with optional CV term; is_a `AttributeValue` |
-| `Variable` | `bertron:Attribute` | extension | is_a `Attribute`; adds entity, property, expression_basis, default_unit, missing_value_code |
+| `Variable` | `bertron:Attribute` | extension | is_a `Attribute`; inherits `id` and `label`; adds expression_basis, default_unit, missing_value_code |
 | `Measurement` | `bertron:QuantityValue` | extension | is_a `QuantityValue`; adds method_id, flag, datetime_measured, statistic, temporal_aggregation, reported_precision, notes |
 | `Dataset` | *(none)* | wss-test only | Top-level container; no BERtron equivalent |
 | `Sample` | *(none)* | wss-test only | Physical sample with site provenance; no BERtron equivalent |
@@ -65,10 +66,13 @@ These slots map directly to BERtron and carry the same semantics.
 
 ### Slots on Attribute (maps to bertron:Attribute)
 
+These slots are inherited by `Variable` (which is_a `Attribute`). In particular,
+`label` serves as the human-readable name for each Variable (e.g. "dissolved organic carbon").
+
 | wss-test slot | BERtron slot | Range | Description |
 |---------------|--------------|-------|-------------|
 | `id` | *(same concept)* | string | Unique identifier |
-| `label` | *(same concept)* | string | Human-readable text describing the attribute |
+| `label` | *(same concept)* | string | Human-readable name for the attribute or variable (e.g. "dissolved organic carbon") |
 
 ### wss-test extension slots on Variable
 
@@ -76,8 +80,6 @@ These slots are added by wss-test and have **no BERtron equivalent**.
 
 | Slot | Range | Description |
 |------|-------|-------------|
-| `entity` | string | The substance or thing being measured (e.g. dissolved organic carbon) |
-| `property` | string | The property being measured (e.g. concentration) |
 | `expression_basis` | string | Chemical expression basis (e.g. as dissolved carbon) |
 | `default_unit` | string | Default unit for this variable |
 | `missing_value_code` | integer | Sentinel value used to represent missing data |

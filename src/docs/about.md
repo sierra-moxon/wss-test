@@ -13,8 +13,9 @@ variable semantics.
 
 The schema inherits base types from BERtron and extends them:
 
-- **Variable** (extends `bertron:Attribute`) — semantic definition of what is being measured,
-  adding `entity`, `property`, `expression_basis`, and `default_unit`
+- **Variable** (extends `bertron:Attribute`) — semantic definition of what is being measured.
+  Inherits `label` from `bertron:Attribute` to name the variable, and adds
+  `expression_basis` and `default_unit`
 - **Measurement** (extends `bertron:QuantityValue`) — a single measured value with full
   provenance, adding `method_id`, `flag`, `datetime_measured`, `statistic`,
   `temporal_aggregation`, `reported_precision`, and `notes`
@@ -23,7 +24,7 @@ The schema inherits base types from BERtron and extends them:
 
 | Concept | BERtron provides | wss-test adds |
 |---------|-----------------|---------------|
-| What was measured | `Attribute.label` | `Variable.entity`, `.property`, `.expression_basis` |
+| What was measured | `Attribute.label` (inherited by Variable) | `Variable.expression_basis` |
 | How much | `QuantityValue.numeric_value`, `.unit` | — |
 | How it was measured | — | `Measurement.method_id` |
 | Quality | — | `Measurement.flag`, `.notes` |

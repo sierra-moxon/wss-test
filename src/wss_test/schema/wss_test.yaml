@@ -33,9 +33,8 @@ imports:
 #        |                              |
 #        v                              v
 #   wss:Variable               bertron:QuantityValue (is_a AttributeValue)
-#     + entity                   numeric_value, unit, unit_cv_id
-#     + property                        |
-#     + expression_basis                v
+#     + expression_basis         numeric_value, unit, unit_cv_id
+#                                       v
 #     + default_unit             wss:Measurement (is_a QuantityValue)
 #     + missing_value_code         attribute → Variable  (narrowed)
 #                                  + method_id
@@ -140,11 +139,9 @@ classes:
     description: >-
       Semantic definition of a measured environmental variable.
       Extends bertron Attribute with structured variable metadata
-      (entity, property, expression basis).  Defined once per
-      variable and referenced by Measurements.
+      (expression basis).  Defined once per variable and
+      referenced by Measurements.
     slots:
-      - entity
-      - property
       - expression_basis
       - default_unit
       - missing_value_code
@@ -315,15 +312,6 @@ slots:
 
   # -- Variable-specific slots (wss-test additions to Attribute) --------------
 
-  entity:
-    description: >-
-      The substance or thing being measured
-      (e.g. dissolved organic carbon).
-    range: string
-  property:
-    description: >-
-      The property being measured (e.g. concentration).
-    range: string
   expression_basis:
     description: >-
       The chemical expression basis

@@ -19,7 +19,7 @@ The Excel workbook contains one sheet for each class in the schema:
 
 - **Dataset** — top-level dataset metadata (`id`, `name`, `description`)
 - **Sample** — sample provenance (`id`, `site_code`, `medium`, `replicate`)
-- **Variable** — variable definitions (`id`, `label`, `entity`, `property`, `expression_basis`, `default_unit`, `missing_value_code`)
+- **Variable** — variable definitions (`id`, `label`, `expression_basis`, `default_unit`, `missing_value_code`)
 - **Measurement** — individual measurements (`attribute`, `numeric_value`, `unit`, `method_id`, `flag`, `datetime_measured`, `statistic`, `temporal_aggregation`, `reported_precision`, `notes`)
 - **Attribute** — base attribute definitions
 - **QuantityValue** — base quantity values

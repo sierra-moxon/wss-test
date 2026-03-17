@@ -21,8 +21,9 @@ Dataset
             └── Measurement  # extends bertron:QuantityValue
 ```
 
-- **Variable** (extends `bertron:Attribute`) — semantic definition of the analyte:
-  entity, property, expression basis, default unit, and missing value sentinel
+- **Variable** (extends `bertron:Attribute`) — semantic definition of the analyte.
+  Inherits `label` from Attribute to name the measured substance; adds
+  expression basis, default unit, and missing value sentinel
 - **Measurement** (extends `bertron:QuantityValue`) — a single observed value with
   method, QC flag, timestamp, statistic, temporal aggregation, precision, and notes
 - **Sample** — site code, medium, replicate, and a list of measurements
