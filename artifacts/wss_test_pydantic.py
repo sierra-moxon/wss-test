@@ -102,7 +102,9 @@ class Dataset(ConfiguredBaseModel):
     """
     A collection of samples representing a coherent data delivery or analytical campaign.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/sierra-moxon/wss-test', 'tree_root': True})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/sierra-moxon/wss-test',
+         'mappings': ['bertron:DataCollection'],
+         'tree_root': True})
 
     id: str = Field(default=..., description="""A unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset', 'Sample', 'Attribute']} })
     name: Optional[str] = Field(default=None, description="""A human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset', 'Sample']} })
@@ -115,7 +117,8 @@ class Sample(ConfiguredBaseModel):
     """
     A physical sample collected for analysis, identified by site, medium, and replicate.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/sierra-moxon/wss-test'})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/sierra-moxon/wss-test',
+         'mappings': ['bertron:Entity']})
 
     id: str = Field(default=..., description="""A unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset', 'Sample', 'Attribute']} })
     name: Optional[str] = Field(default=None, description="""A human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset', 'Sample']} })

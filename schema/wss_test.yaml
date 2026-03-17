@@ -711,6 +711,8 @@ classes:
     description: A collection of samples representing a coherent data delivery or
       analytical campaign.
     from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:DataCollection
     slots:
     - id
     - name
@@ -725,6 +727,8 @@ classes:
     description: A physical sample collected for analysis, identified by site, medium,
       and replicate.
     from_schema: https://w3id.org/sierra-moxon/wss-test
+    mappings:
+    - bertron:Entity
     slots:
     - id
     - name
@@ -850,7 +854,7 @@ classes:
     class_uri: wss_test:Measurement
 metamodel_version: 1.7.0
 source_file: wss_test.yaml
-source_file_date: '2026-03-17T16:56:41'
-source_file_size: 9948
-generation_date: '2026-03-17T16:56:59'
+source_file_date: '2026-03-17T17:30:55'
+source_file_size: 10030
+generation_date: '2026-03-17T17:31:12'
 
