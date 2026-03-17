@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#wss-test" class="md-skip">
+        <a href="#water-sample-schema-wss-test" class="md-skip">
           Skip to content
         </a>
       
@@ -275,6 +275,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -291,6 +309,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key design choice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -424,6 +516,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key design choice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting started
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -443,10 +598,77 @@
   
 
 
-<h1 id="wss-test">wss-test</h1>
-<p>This is the project description.</p>
+<h1 id="water-sample-schema-wss-test">Water Sample Schema (wss-test)</h1>
+<p>A <a href="https://linkml.io/">LinkML</a> schema for structured water sample measurement data.
+Built on the <a href="https://github.com/ber-data/bertron-schema">BERtron</a> common data model,
+wss-test adds measurement provenance, variable semantics, and QC metadata to BERtron's
+base <code>Attribute</code> and <code>QuantityValue</code> types.</p>
+<h2 id="what-it-does">What it does</h2>
+<p>The schema captures environmental water quality measurements in a validated, structured
+format — replacing flat spreadsheets with a model that separates <strong>what</strong> was measured
+from <strong>how</strong> and <strong>when</strong> it was measured.</p>
+<div class="highlight"><pre><span></span><code>Dataset
+├── variables[]          # Define once, reference many times
+│   └── Variable         # extends bertron:Attribute
+└── samples[]            # One per physical sample
+    └── Sample
+        └── measurements[]
+            └── Measurement  # extends bertron:QuantityValue
+</code></pre></div>
 <ul>
-<li>Auto-generated <a href="elements/">schema documentation</a></li>
+<li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of the analyte:
+  entity, property, expression basis, default unit, and missing value sentinel</li>
+<li><strong>Measurement</strong> (extends <code>bertron:QuantityValue</code>) — a single observed value with
+  method, QC flag, timestamp, statistic, temporal aggregation, precision, and notes</li>
+<li><strong>Sample</strong> — site code, medium, replicate, and a list of measurements</li>
+<li><strong>Dataset</strong> — top-level container grouping variables and samples</li>
+</ul>
+<h2 id="key-design-choice">Key design choice</h2>
+<p>A variable like "dissolved oxygen" is defined <strong>once</strong>. Two analytical methods on the
+same sample are distinguished by <code>method_id</code> on each Measurement, not by duplicating
+variable definitions.</p>
+<h2 id="quick-links">Quick links</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="elements/">Schema documentation</a></td>
+<td>Auto-generated class, slot, type, and enum reference</td>
+</tr>
+<tr>
+<td><a href="examples/">Examples</a></td>
+<td>Annotated example data showing common measurement patterns</td>
+</tr>
+<tr>
+<td><a href="artifacts/">Artifacts</a></td>
+<td>Downloadable JSON Schema, Excel template, SQL DDL, and Python models</td>
+</tr>
+<tr>
+<td><a href="about/">About</a></td>
+<td>Design rationale, tech stack, and development guide</td>
+</tr>
+</tbody>
+</table>
+<h2 id="getting-started">Getting started</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install dependencies</span>
+just<span class="w"> </span>install
+
+<span class="c1"># Run the test suite</span>
+just<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Build and serve docs locally</span>
+just<span class="w"> </span>testdoc
+</code></pre></div>
+<h2 id="technology">Technology</h2>
+<ul>
+<li><a href="https://linkml.io/">LinkML</a> for schema definition</li>
+<li><a href="https://www.mkdocs.org/">MkDocs</a> with <a href="https://squidfunk.github.io/mkdocs-material/">Material theme</a> for documentation</li>
+<li><a href="https://github.com/ber-data/bertron-schema">BERtron</a> common data model as the base layer</li>
 </ul>
 
 
