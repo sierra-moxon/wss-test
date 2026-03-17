@@ -801,8 +801,9 @@ variable semantics.</p>
 <p><strong>BERtron defines the value containers; wss-test adds measurement provenance.</strong></p>
 <p>The schema inherits base types from BERtron and extends them:</p>
 <ul>
-<li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of what is being measured,
-  adding <code>entity</code>, <code>property</code>, <code>expression_basis</code>, and <code>default_unit</code></li>
+<li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of what is being measured.
+  Inherits <code>label</code> from <code>bertron:Attribute</code> to name the variable, and adds
+  <code>expression_basis</code> and <code>default_unit</code></li>
 <li><strong>Measurement</strong> (extends <code>bertron:QuantityValue</code>) — a single measured value with full
   provenance, adding <code>method_id</code>, <code>flag</code>, <code>datetime_measured</code>, <code>statistic</code>,
   <code>temporal_aggregation</code>, <code>reported_precision</code>, and <code>notes</code></li>
@@ -819,8 +820,8 @@ variable semantics.</p>
 <tbody>
 <tr>
 <td>What was measured</td>
-<td><code>Attribute.label</code></td>
-<td><code>Variable.entity</code>, <code>.property</code>, <code>.expression_basis</code></td>
+<td><code>Attribute.label</code> (inherited by Variable)</td>
+<td><code>Variable.expression_basis</code></td>
 </tr>
 <tr>
 <td>How much</td>

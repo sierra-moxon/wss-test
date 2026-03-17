@@ -643,8 +643,9 @@ from <strong>how</strong> and <strong>when</strong> it was measured.</p>
             └── Measurement  # extends bertron:QuantityValue
 </code></pre></div>
 <ul>
-<li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of the analyte:
-  entity, property, expression basis, default unit, and missing value sentinel</li>
+<li><strong>Variable</strong> (extends <code>bertron:Attribute</code>) — semantic definition of the analyte.
+  Inherits <code>label</code> from Attribute to name the measured substance; adds
+  expression basis, default unit, and missing value sentinel</li>
 <li><strong>Measurement</strong> (extends <code>bertron:QuantityValue</code>) — a single observed value with
   method, QC flag, timestamp, statistic, temporal aggregation, precision, and notes</li>
 <li><strong>Sample</strong> — site code, medium, replicate, and a list of measurements</li>

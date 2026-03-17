@@ -738,9 +738,10 @@ measurement provenance and variable semantics.</p>
   ├── id, label                   ├── attribute → Attribute
   │                               ├── raw_value
   └── wss:Variable                │
-      ├── + entity                ├── bertron:QuantityValue
-      ├── + property              │     ├── numeric_value, unit, unit_cv_id
-      ├── + expression_basis      │     │
+      ├── id, label (inherited)   │
+      ├── + expression_basis      ├── bertron:QuantityValue
+      │                           │     ├── numeric_value, unit, unit_cv_id
+      │                           │     │
       ├── + default_unit          │     └── wss:Measurement
       └── + missing_value_code    │           ├── attribute → Variable (narrowed)
                                   │           ├── + method_id
@@ -796,7 +797,7 @@ equivalent.</p>
 <td><code>Variable</code></td>
 <td><code>bertron:Attribute</code></td>
 <td>extension</td>
-<td>is_a <code>Attribute</code>; adds entity, property, expression_basis, default_unit, missing_value_code</td>
+<td>is_a <code>Attribute</code>; inherits <code>id</code> and <code>label</code>; adds expression_basis, default_unit, missing_value_code</td>
 </tr>
 <tr>
 <td><code>Measurement</code></td>
@@ -884,6 +885,8 @@ equivalent.</p>
 </tbody>
 </table>
 <h3 id="slots-on-attribute-maps-to-bertronattribute">Slots on Attribute (maps to bertron:Attribute)</h3>
+<p>These slots are inherited by <code>Variable</code> (which is_a <code>Attribute</code>). In particular,
+<code>label</code> serves as the human-readable name for each Variable (e.g. "dissolved organic carbon").</p>
 <table>
 <thead>
 <tr>
@@ -904,7 +907,7 @@ equivalent.</p>
 <td><code>label</code></td>
 <td><em>(same concept)</em></td>
 <td>string</td>
-<td>Human-readable text describing the attribute</td>
+<td>Human-readable name for the attribute or variable (e.g. "dissolved organic carbon")</td>
 </tr>
 </tbody>
 </table>
@@ -919,16 +922,6 @@ equivalent.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>entity</code></td>
-<td>string</td>
-<td>The substance or thing being measured (e.g. dissolved organic carbon)</td>
-</tr>
-<tr>
-<td><code>property</code></td>
-<td>string</td>
-<td>The property being measured (e.g. concentration)</td>
-</tr>
 <tr>
 <td><code>expression_basis</code></td>
 <td>string</td>

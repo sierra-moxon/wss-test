@@ -1,5 +1,5 @@
 # Auto generated from wss_test.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-17T01:10:51
+# Generation date: 2026-03-17T16:56:52
 # Schema: wss-test
 #
 # id: https://w3id.org/sierra-moxon/wss-test
@@ -292,7 +292,7 @@ class TextValue(AttributeValue):
 class Variable(Attribute):
     """
     Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable
-    metadata (entity, property, expression basis). Defined once per variable and referenced by Measurements.
+    metadata (expression basis). Defined once per variable and referenced by Measurements.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -303,8 +303,6 @@ class Variable(Attribute):
 
     id: Union[str, VariableId] = None
     label: str = None
-    entity: Optional[str] = None
-    property: Optional[str] = None
     expression_basis: Optional[str] = None
     default_unit: Optional[str] = None
     missing_value_code: Optional[int] = None
@@ -314,12 +312,6 @@ class Variable(Attribute):
             self.MissingRequiredField("id")
         if not isinstance(self.id, VariableId):
             self.id = VariableId(self.id)
-
-        if self.entity is not None and not isinstance(self.entity, str):
-            self.entity = str(self.entity)
-
-        if self.property is not None and not isinstance(self.property, str):
-            self.property = str(self.property)
 
         if self.expression_basis is not None and not isinstance(self.expression_basis, str):
             self.expression_basis = str(self.expression_basis)
@@ -454,12 +446,6 @@ slots.value = Slot(uri=WSS_TEST.value, name="value", curie=WSS_TEST.curie('value
 
 slots.value_cv_id = Slot(uri=WSS_TEST.value_cv_id, name="value_cv_id", curie=WSS_TEST.curie('value_cv_id'),
                    model_uri=WSS_TEST.value_cv_id, domain=None, range=Optional[Union[str, Curie]], mappings = [BERTRON["value_cv_id"]])
-
-slots.entity = Slot(uri=WSS_TEST.entity, name="entity", curie=WSS_TEST.curie('entity'),
-                   model_uri=WSS_TEST.entity, domain=None, range=Optional[str])
-
-slots.property = Slot(uri=WSS_TEST.property, name="property", curie=WSS_TEST.curie('property'),
-                   model_uri=WSS_TEST.property, domain=None, range=Optional[str])
 
 slots.expression_basis = Slot(uri=WSS_TEST.expression_basis, name="expression_basis", curie=WSS_TEST.curie('expression_basis'),
                    model_uri=WSS_TEST.expression_basis, domain=None, range=Optional[str])

@@ -193,7 +193,7 @@ class TextValue(AttributeValue):
 
 class Variable(Attribute):
     """
-    Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (entity, property, expression basis).  Defined once per variable and referenced by Measurements.
+    Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (expression basis).  Defined once per variable and referenced by Measurements.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/sierra-moxon/wss-test',
          'slot_usage': {'id': {'description': 'Canonical identifier for this variable '
@@ -202,8 +202,6 @@ class Variable(Attribute):
                                'name': 'id',
                                'required': True}}})
 
-    entity: Optional[str] = Field(default=None, description="""The substance or thing being measured (e.g. dissolved organic carbon).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Variable']} })
-    property: Optional[str] = Field(default=None, description="""The property being measured (e.g. concentration).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Variable']} })
     expression_basis: Optional[str] = Field(default=None, description="""The chemical expression basis (e.g. as dissolved carbon).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Variable']} })
     default_unit: Optional[str] = Field(default=None, description="""Default unit for this variable, ideally as a Unit Ontology CURIE.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Variable']} })
     missing_value_code: Optional[int] = Field(default=None, description="""The sentinel value used to represent missing data for this variable.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Variable']} })

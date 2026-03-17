@@ -976,29 +976,24 @@ including multiple analytes, replicate samples, dual methods, QC flags, and miss
 </code></pre></div>
 <h2 id="variable-definitions">Variable Definitions</h2>
 <p>Variables are defined once in the <code>variables</code> list and referenced by every measurement.
+The <code>label</code> slot is inherited from <code>bertron:Attribute</code> and names the measured substance.
 This eliminates duplication — "dissolved oxygen" is defined once regardless of how many
 methods measure it.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">variables</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">carbon_dissolved_organic</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dissolved organic carbon</span>
-<span class="w">    </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dissolved organic carbon</span>
-<span class="w">    </span><span class="nt">property</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concentration</span>
 <span class="w">    </span><span class="nt">expression_basis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as dissolved carbon</span>
 <span class="w">    </span><span class="nt">default_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UO:0000175</span><span class="w">        </span><span class="c1"># mg/L</span>
 <span class="w">    </span><span class="nt">missing_value_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-9999</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nitrogen_total_dissolved</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">total dissolved nitrogen</span>
-<span class="w">    </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dissolved nitrogen</span>
-<span class="w">    </span><span class="nt">property</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concentration</span>
 <span class="w">    </span><span class="nt">expression_basis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as dissolved nitrogen</span>
 <span class="w">    </span><span class="nt">default_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UO:0000175</span>
 <span class="w">    </span><span class="nt">missing_value_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-9999</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dissolved_oxygen</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dissolved oxygen</span>
-<span class="w">    </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oxygen</span>
-<span class="w">    </span><span class="nt">property</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concentration</span>
 <span class="w">    </span><span class="nt">expression_basis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as dissolved oxygen</span>
 <span class="w">    </span><span class="nt">default_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UO:0000175</span>
 <span class="w">    </span><span class="nt">missing_value_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-9999</span>
@@ -1121,7 +1116,7 @@ Variable (<code>dissolved_oxygen</code>), distinguished only by <code>method_id<
 <h2 id="what-this-buys-you">What This Buys You</h2>
 <ol>
 <li><strong>Every slot traces to BERtron or is explicitly new</strong> — no ambiguity about what is inherited vs. added</li>
-<li><strong>Variable = Attribute + domain semantics</strong> — BERtron consumers see a valid Attribute; domain consumers get entity/property/expression_basis</li>
+<li><strong>Variable = Attribute + domain semantics</strong> — <code>label</code> is inherited from <code>bertron:Attribute</code>; domain consumers additionally get expression_basis</li>
 <li><strong>Measurement = QuantityValue + provenance</strong> — BERtron consumers see a valid QuantityValue; domain consumers get method, QC, timestamps</li>
 <li><strong>Two DO methods on CM_005 are distinguishable</strong> — same attribute (<code>dissolved_oxygen</code>), different <code>method_id</code></li>
 <li><strong>3 Variables instead of 5 MeasurementSpecifications</strong> — no more duplicating variable definitions per method</li>

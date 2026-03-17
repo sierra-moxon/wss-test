@@ -29,9 +29,7 @@
 --     * Slot: value_cv_id Description: For values that are in a controlled vocabulary (CV), this attribute should capture the controlled vocabulary ID for the value.
 --     * Slot: attribute Description: The attribute being represented.
 --     * Slot: raw_value Description: The value that was specified for an annotation in raw form, i.e. a string. E.g. "2 cm" or "2-4 cm"
--- # Class: Variable Description: Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (entity, property, expression basis).  Defined once per variable and referenced by Measurements.
---     * Slot: entity Description: The substance or thing being measured (e.g. dissolved organic carbon).
---     * Slot: property Description: The property being measured (e.g. concentration).
+-- # Class: Variable Description: Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (expression basis).  Defined once per variable and referenced by Measurements.
 --     * Slot: expression_basis Description: The chemical expression basis (e.g. as dissolved carbon).
 --     * Slot: default_unit Description: Default unit for this variable, ideally as a Unit Ontology CURIE.
 --     * Slot: missing_value_code Description: The sentinel value used to represent missing data for this variable.
@@ -114,8 +112,6 @@ CREATE TABLE "TextValue" (
 CREATE INDEX "ix_TextValue_id" ON "TextValue" (id);
 
 CREATE TABLE "Variable" (
-	entity TEXT,
-	property TEXT,
 	expression_basis TEXT,
 	default_unit TEXT,
 	missing_value_code INTEGER,

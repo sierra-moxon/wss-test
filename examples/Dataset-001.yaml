@@ -12,24 +12,18 @@ description: >-
 variables:
   - id: carbon_dissolved_organic
     label: dissolved organic carbon
-    entity: dissolved organic carbon
-    property: concentration
     expression_basis: as dissolved carbon
     default_unit: UO:0000175
     missing_value_code: -9999
 
   - id: nitrogen_total_dissolved
     label: total dissolved nitrogen
-    entity: dissolved nitrogen
-    property: concentration
     expression_basis: as dissolved nitrogen
     default_unit: UO:0000175
     missing_value_code: -9999
 
   - id: dissolved_oxygen
     label: dissolved oxygen
-    entity: oxygen
-    property: concentration
     expression_basis: as dissolved oxygen
     default_unit: UO:0000175
     missing_value_code: -9999

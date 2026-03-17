@@ -292,17 +292,10 @@
         },
         "Variable": {
             "additionalProperties": false,
-            "description": "Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (entity, property, expression basis).  Defined once per variable and referenced by Measurements.",
+            "description": "Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (expression basis).  Defined once per variable and referenced by Measurements.",
             "properties": {
                 "default_unit": {
                     "description": "Default unit for this variable, ideally as a Unit Ontology CURIE.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "entity": {
-                    "description": "The substance or thing being measured (e.g. dissolved organic carbon).",
                     "type": [
                         "string",
                         "null"
@@ -327,13 +320,6 @@
                     "description": "The sentinel value used to represent missing data for this variable.",
                     "type": [
                         "integer",
-                        "null"
-                    ]
-                },
-                "property": {
-                    "description": "The property being measured (e.g. concentration).",
-                    "type": [
-                        "string",
                         "null"
                     ]
                 }

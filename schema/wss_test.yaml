@@ -522,26 +522,6 @@ slots:
     domain_of:
     - TextValue
     range: curie
-  entity:
-    name: entity
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/entity
-    description: The substance or thing being measured (e.g. dissolved organic carbon).
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    slot_uri: wss_test:entity
-    owner: Variable
-    domain_of:
-    - Variable
-    range: string
-  property:
-    name: property
-    definition_uri: https://w3id.org/sierra-moxon/wss-test/property
-    description: The property being measured (e.g. concentration).
-    from_schema: https://w3id.org/sierra-moxon/wss-test
-    slot_uri: wss_test:property
-    owner: Variable
-    domain_of:
-    - Variable
-    range: string
   expression_basis:
     name: expression_basis
     definition_uri: https://w3id.org/sierra-moxon/wss-test/expression_basis
@@ -816,14 +796,12 @@ classes:
     name: Variable
     definition_uri: https://w3id.org/sierra-moxon/wss-test/Variable
     description: Semantic definition of a measured environmental variable. Extends
-      bertron Attribute with structured variable metadata (entity, property, expression
-      basis).  Defined once per variable and referenced by Measurements.
+      bertron Attribute with structured variable metadata (expression basis).  Defined
+      once per variable and referenced by Measurements.
     from_schema: https://w3id.org/sierra-moxon/wss-test
     is_a: Attribute
     slots:
     - label
-    - entity
-    - property
     - expression_basis
     - default_unit
     - missing_value_code
@@ -872,7 +850,7 @@ classes:
     class_uri: wss_test:Measurement
 metamodel_version: 1.7.0
 source_file: wss_test.yaml
-source_file_date: '2026-03-17T01:10:41'
-source_file_size: 10277
-generation_date: '2026-03-17T01:10:58'
+source_file_date: '2026-03-17T16:56:41'
+source_file_size: 9948
+generation_date: '2026-03-17T16:56:59'
 

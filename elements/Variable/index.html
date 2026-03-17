@@ -322,7 +322,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-variable">Class: Variable</h1>
-<p><em>Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (entity, property, expression basis).  Defined once per variable and referenced by Measurements.</em></p>
+<p><em>Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable metadata (expression basis).  Defined once per variable and referenced by Measurements.</em></p>
 <p>URI: <a href="https://w3id.org/sierra-moxon/wss-test/Variable">wss_test:Variable</a></p>
 <pre class="mermaid"><code> classDiagram
     class Variable
@@ -332,8 +332,6 @@
 
       Variable : default_unit
 
-      Variable : entity
-
       Variable : expression_basis
 
       Variable : id
@@ -341,8 +339,6 @@
       Variable : label
 
       Variable : missing_value_code
-
-      Variable : property
 
 </code></pre>
 <h2 id="inheritance">Inheritance</h2>
@@ -363,18 +359,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><a href="../entity/">entity</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>The substance or thing being measured (e</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../property/">property</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>The property being measured (e</td>
-<td>direct</td>
-</tr>
 <tr>
 <td><a href="../expression_basis/">expression_basis</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
@@ -462,13 +446,11 @@
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Semantic definition of a measured environmental variable. Extends bertron</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Attribute with structured variable metadata (entity, property, expression basis).  Defined</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">once per variable and referenced by Measurements.</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Attribute with structured variable metadata (expression basis).  Defined once per</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">variable and referenced by Measurements.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/wss-test</span>
 <span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Attribute</span>
 <span class="nt">slots</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">property</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expression_basis</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_unit</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">missing_value_code</span>
@@ -484,8 +466,8 @@
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Semantic definition of a measured environmental variable. Extends bertron</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Attribute with structured variable metadata (entity, property, expression basis).  Defined</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">once per variable and referenced by Measurements.</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Attribute with structured variable metadata (expression basis).  Defined once per</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">variable and referenced by Measurements.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/wss-test</span>
 <span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Attribute</span>
 <span class="nt">slot_usage</span><span class="p">:</span>
@@ -495,26 +477,6 @@
 <span class="w">    </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">attributes</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">entity</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The substance or thing being measured (e.g. dissolved organic carbon).</span>
-<span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/wss-test</span>
-<span class="w">    </span><span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
-<span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
-<span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
-<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="w">  </span><span class="nt">property</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">property</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The property being measured (e.g. concentration).</span>
-<span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/wss-test</span>
-<span class="w">    </span><span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">property</span>
-<span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
-<span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable</span>
-<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">  </span><span class="nt">expression_basis</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expression_basis</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The chemical expression basis (e.g. as dissolved carbon).</span>
