@@ -17,8 +17,9 @@ The schema inherits base types from BERtron and extends them:
   `variables[]` and `samples[]` to group definitions and data together
 - **Sample** (maps to `bertron:Entity`) — replaces generic `properties[]` with typed
   `site_code`, `medium`, `replicate`, and `measurements[]`
-- **Variable** (extends `bertron:Attribute`) — semantic definition of what is being measured,
-  adding `expression_basis`, `default_unit`, and `missing_value_code`
+- **Variable** (extends `bertron:Attribute`) — semantic definition of what is being measured.
+  Inherits `label` from `bertron:Attribute` to name the variable, and adds
+  `expression_basis`, `default_unit`, and `missing_value_code`
 - **Measurement** (extends `bertron:QuantityValue`) — a single measured value with full
   provenance, adding `method_id`, `flag`, `datetime_measured`, `statistic`,
   `temporal_aggregation`, `reported_precision`, and `notes`

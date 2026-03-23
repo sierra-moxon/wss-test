@@ -6,42 +6,54 @@ BERtron provides the foundational types (`DataCollection`, `Entity`, `Attribute`
 `AttributeValue`, `QuantityValue`, `TextValue`); wss-test extends them with
 environmental measurement provenance and variable semantics.
 
-## Class hierarchy
+## Data Flow
 
-```
- DATA FLOW                      BERTRON                          OBSERVATIONS
- ─────────                      ───────                          ────────────
+How data is organized at runtime — Dataset contains Variables and Samples,
+Samples contain Measurements, each Measurement references a Variable.
 
- Dataset                        bertron:DataCollection           bertron:AttributeValue (abstract)
- ├── variables[]                  ├── id, title, description       ├── attribute → Attribute
- │   └── Variable                │                                ├── raw_value
- │                                └── wss:Dataset                  │
- └── samples[]                        ├── + variables[]            ├── bertron:QuantityValue
-     └── Sample                       └── + samples[]              │     ├── numeric_value
-         └── measurements[]                                        │     ├── unit, unit_cv_id
-             └── Measurement    bertron:Entity                     │     │
-                  └── attribute   ├── id, name, description        │     └── wss:Measurement
-                       └── Var.   ├── properties[]                 │           ├── attribute → Variable
-                                  │    └── AttributeValue          │           ├── + method_id
-                                  │                                │           ├── + flag
-                                  └── wss:Sample                   │           ├── + datetime_measured
-                                       ├── + site_code             │           ├── + statistic
-                                       ├── + medium                │           ├── + temporal_aggregation
-                                       ├── + replicate             │           ├── + reported_precision
-                                       └── + measurements[]        │           └── + notes
-                                                                   │
-                                  bertron:Attribute                └── bertron:TextValue
-                                    ├── id, label                        ├── value
-                                    │                                    └── value_cv_id
-                                    └── wss:Variable
-                                         ├── id, label (inherited)
-                                         ├── + expression_basis
-                                         ├── + default_unit
-                                         └── + missing_value_code
+```mermaid
+graph TD
+    Dataset["<b>Dataset</b><br/><i>maps to bertron:DataCollection</i>"]
+    Variable["<b>Variable</b><br/><i>extends bertron:Attribute</i><br/>id, label, expression_basis,<br/>default_unit, missing_value_code"]
+    Sample["<b>Sample</b><br/><i>maps to bertron:Entity</i><br/>site_code, medium, replicate"]
+    Measurement["<b>Measurement</b><br/><i>extends bertron:QuantityValue</i><br/>numeric_value, unit, method_id,<br/>flag, datetime_measured, statistic,<br/>temporal_aggregation, reported_precision, notes"]
+
+    Dataset -- "variables[]" --> Variable
+    Dataset -- "samples[]" --> Sample
+    Sample -- "measurements[]" --> Measurement
+    Measurement -. "attribute" .-> Variable
 ```
 
-Slots prefixed with **+** are wss-test additions that have no BERtron
-equivalent.
+## BERtron Mappings
+
+How each wss-test class maps to or extends a BERtron base type. Slots
+prefixed with **+** are wss-test additions that have no BERtron equivalent.
+
+```mermaid
+graph LR
+    subgraph BERtron
+        DC["DataCollection<br/>id, title, description"]
+        Entity["Entity<br/>id, name, properties[]"]
+        Attribute["Attribute<br/>id, label"]
+        AV["AttributeValue <i>(abstract)</i><br/>attribute, raw_value"]
+        QV["QuantityValue<br/>numeric_value, unit, unit_cv_id"]
+        TV["TextValue<br/>value, value_cv_id"]
+        AV --> QV
+        AV --> TV
+    end
+
+    subgraph wss-test
+        Dataset["<b>Dataset</b><br/>+ variables[], samples[]"]
+        Sample["<b>Sample</b><br/>+ site_code, medium,<br/>replicate, measurements[]"]
+        Variable["<b>Variable</b><br/>+ expression_basis,<br/>default_unit, missing_value_code"]
+        Measurement["<b>Measurement</b><br/>+ method_id, flag,<br/>datetime_measured, statistic,<br/>temporal_aggregation,<br/>reported_precision, notes"]
+    end
+
+    DC -- "maps to" --> Dataset
+    Entity -- "maps to" --> Sample
+    Attribute -- "extends" --> Variable
+    QV -- "extends" --> Measurement
+```
 
 ## Class mappings
 

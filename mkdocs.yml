@@ -24,12 +24,9 @@ extra_javascript: []
 
 plugins:
   - search
-  - mknotebooks:
-      execute: false
   - mermaid2:
       version: 11.4.1
-  - mkdocs_pymdownx_material_extras:
-    # https://pypi.org/project/mkdocs-pymdownx-material-extras
+  # mkdocs-material already includes pymdownx extensions support
 
 markdown_extensions:
   - pymdownx.superfences:

@@ -293,7 +293,7 @@ slots:
     description: >-
       The unit of the quantity, expressed as a CURIE from
       the Unit Ontology.
-    range: curie
+    range: uriorcurie
     mappings:
       - bertron:unit_cv_id
 
@@ -310,7 +310,7 @@ slots:
       For values that are in a controlled vocabulary (CV),
       this attribute should capture the controlled vocabulary
       ID for the value.
-    range: curie
+    range: uriorcurie
     mappings:
       - bertron:value_cv_id
 

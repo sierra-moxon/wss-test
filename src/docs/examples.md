@@ -48,23 +48,23 @@ Every column in the spreadsheet maps to a slot in the schema:
 
 The data is organized into three levels:
 
-```
-Dataset
-├── variables[]          # Define once, reference many times
-│   ├── Variable: carbon_dissolved_organic
-│   ├── Variable: nitrogen_total_dissolved
-│   └── Variable: dissolved_oxygen
-└── samples[]            # One per physical sample
-    └── Sample
-        ├── site_code, medium, replicate
-        └── measurements[]
-            └── Measurement
-                ├── attribute → Variable (by id)
-                ├── numeric_value, unit
-                ├── method_id, flag, notes
-                ├── datetime_measured
-                ├── statistic, temporal_aggregation
-                └── reported_precision
+```mermaid
+graph TD
+    Dataset["<b>Dataset</b>"]
+    DOC["Variable: carbon_dissolved_organic"]
+    TDN["Variable: nitrogen_total_dissolved"]
+    DO["Variable: dissolved_oxygen"]
+    Sample["<b>Sample</b><br/>site_code, medium, replicate"]
+    Measurement["<b>Measurement</b><br/>numeric_value, unit, method_id,<br/>flag, datetime_measured, statistic,<br/>temporal_aggregation, reported_precision, notes"]
+
+    Dataset -- "variables[]" --> DOC
+    Dataset -- "variables[]" --> TDN
+    Dataset -- "variables[]" --> DO
+    Dataset -- "samples[]" --> Sample
+    Sample -- "measurements[]" --> Measurement
+    Measurement -. "attribute (by id)" .-> DOC
+    Measurement -. "attribute (by id)" .-> TDN
+    Measurement -. "attribute (by id)" .-> DO
 ```
 
 ## Variable Definitions

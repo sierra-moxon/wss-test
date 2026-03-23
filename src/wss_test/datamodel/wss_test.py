@@ -1,5 +1,5 @@
 # Auto generated from wss_test.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-16T17:52:24
+# Generation date: 2026-03-19T07:54:18
 # Schema: wss-test
 #
 # id: https://w3id.org/sierra-moxon/wss-test
@@ -59,8 +59,8 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Curie, Datetime, Float, Integer, String
-from linkml_runtime.utils.metamodelcore import Curie, XSDDateTime
+from linkml_runtime.linkml_model.types import Datetime, Float, Integer, String, Uriorcurie
+from linkml_runtime.utils.metamodelcore import URIorCURIE, XSDDateTime
 
 metamodel_version = "1.7.0"
 version = None
@@ -253,7 +253,7 @@ class QuantityValue(AttributeValue):
     attribute: Union[str, AttributeId] = None
     numeric_value: Optional[float] = None
     unit: Optional[str] = None
-    unit_cv_id: Optional[Union[str, Curie]] = None
+    unit_cv_id: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.numeric_value is not None and not isinstance(self.numeric_value, float):
@@ -262,8 +262,8 @@ class QuantityValue(AttributeValue):
         if self.unit is not None and not isinstance(self.unit, str):
             self.unit = str(self.unit)
 
-        if self.unit_cv_id is not None and not isinstance(self.unit_cv_id, Curie):
-            self.unit_cv_id = Curie(self.unit_cv_id)
+        if self.unit_cv_id is not None and not isinstance(self.unit_cv_id, URIorCURIE):
+            self.unit_cv_id = URIorCURIE(self.unit_cv_id)
 
         super().__post_init__(**kwargs)
 
@@ -282,14 +282,14 @@ class TextValue(AttributeValue):
 
     attribute: Union[str, AttributeId] = None
     value: Optional[str] = None
-    value_cv_id: Optional[Union[str, Curie]] = None
+    value_cv_id: Optional[Union[str, URIorCURIE]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.value is not None and not isinstance(self.value, str):
             self.value = str(self.value)
 
-        if self.value_cv_id is not None and not isinstance(self.value_cv_id, Curie):
-            self.value_cv_id = Curie(self.value_cv_id)
+        if self.value_cv_id is not None and not isinstance(self.value_cv_id, URIorCURIE):
+            self.value_cv_id = URIorCURIE(self.value_cv_id)
 
         super().__post_init__(**kwargs)
 
@@ -298,7 +298,7 @@ class TextValue(AttributeValue):
 class Variable(Attribute):
     """
     Semantic definition of a measured environmental variable. Extends bertron Attribute with structured variable
-    metadata (entity, property, expression basis). Defined once per variable and referenced by Measurements.
+    metadata (expression basis). Defined once per variable and referenced by Measurements.
     """
     _inherited_slots: ClassVar[List[str]] = []
 
@@ -309,8 +309,6 @@ class Variable(Attribute):
 
     id: Union[str, VariableId] = None
     label: str = None
-    entity: Optional[str] = None
-    property: Optional[str] = None
     expression_basis: Optional[str] = None
     default_unit: Optional[str] = None
     missing_value_code: Optional[int] = None
@@ -320,12 +318,6 @@ class Variable(Attribute):
             self.MissingRequiredField("id")
         if not isinstance(self.id, VariableId):
             self.id = VariableId(self.id)
-
-        if self.entity is not None and not isinstance(self.entity, str):
-            self.entity = str(self.entity)
-
-        if self.property is not None and not isinstance(self.property, str):
-            self.property = str(self.property)
 
         if self.expression_basis is not None and not isinstance(self.expression_basis, str):
             self.expression_basis = str(self.expression_basis)
@@ -453,19 +445,13 @@ slots.unit = Slot(uri=WSS_TEST.unit, name="unit", curie=WSS_TEST.curie('unit'),
                    model_uri=WSS_TEST.unit, domain=None, range=Optional[str], mappings = [NMDC["unit"], QUD["unit"], SCHEMA["unitCode"], UO["0000000"], BERTRON["unit"]])
 
 slots.unit_cv_id = Slot(uri=WSS_TEST.unit_cv_id, name="unit_cv_id", curie=WSS_TEST.curie('unit_cv_id'),
-                   model_uri=WSS_TEST.unit_cv_id, domain=None, range=Optional[Union[str, Curie]], mappings = [BERTRON["unit_cv_id"]])
+                   model_uri=WSS_TEST.unit_cv_id, domain=None, range=Optional[Union[str, URIorCURIE]], mappings = [BERTRON["unit_cv_id"]])
 
 slots.value = Slot(uri=WSS_TEST.value, name="value", curie=WSS_TEST.curie('value'),
                    model_uri=WSS_TEST.value, domain=None, range=Optional[str], mappings = [BERTRON["value"]])
 
 slots.value_cv_id = Slot(uri=WSS_TEST.value_cv_id, name="value_cv_id", curie=WSS_TEST.curie('value_cv_id'),
-                   model_uri=WSS_TEST.value_cv_id, domain=None, range=Optional[Union[str, Curie]], mappings = [BERTRON["value_cv_id"]])
-
-slots.entity = Slot(uri=WSS_TEST.entity, name="entity", curie=WSS_TEST.curie('entity'),
-                   model_uri=WSS_TEST.entity, domain=None, range=Optional[str])
-
-slots.property = Slot(uri=WSS_TEST.property, name="property", curie=WSS_TEST.curie('property'),
-                   model_uri=WSS_TEST.property, domain=None, range=Optional[str])
+                   model_uri=WSS_TEST.value_cv_id, domain=None, range=Optional[Union[str, URIorCURIE]], mappings = [BERTRON["value_cv_id"]])
 
 slots.expression_basis = Slot(uri=WSS_TEST.expression_basis, name="expression_basis", curie=WSS_TEST.curie('expression_basis'),
                    model_uri=WSS_TEST.expression_basis, domain=None, range=Optional[str])
