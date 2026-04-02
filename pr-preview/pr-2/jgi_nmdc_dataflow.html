@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JGI/GOLD ↔ NMDC Data Flow</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+    }
+    h1, h2 { color: #333; }
+    .diagram-container {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>JGI/GOLD ↔ NMDC Data Flow</h1>
+
+<h2>1. System Architecture</h2>
+<div class="diagram-container">
+  <pre class="mermaid">
+flowchart TB
+  subgraph JGI["JGI Systems"]
+    PM["PM\n(Project Manager\nIntake)"]
+    ITS["ITS\n(LIMS)"]
+    DW["Data Warehouse"]
+    GOLD["GOLD\n(DB + Curation UI)"]
+    IMG["IMG\n(24-hr SQL sync)"]
+    JAMO["JAMO\n(SIGS tables)"]
+    JDP["JDP\n(Data Portal)"]
+    DanaWS["Dana's ITS/WIP\nWeb Service\n(DW5521/DW5784)\n RESTORED"]
+  end
+
+  subgraph NMDC_Portal["NMDC Submission Portal (nmdc-server)"]
+    PortalUI["Portal UI\n(StudyForm, MultiOmicsForm)"]
+    PortalDB["PostgreSQL\n(JSONB submissions)"]
+    PortalETL["Portal ETL\n(MongoDB to PostgreSQL\ndual-DB swap)"]
+  end
+
+  subgraph NMDC_Runtime["NMDC Runtime (Dagster)"]
+    GoldClient["GoldApiClient\n(BasicAuth)"]
+    GoldTranslator["GoldStudyTranslator\n(GOLD to NMDC schema\ngold-to-mixs.sssom)"]
+    PortalTranslator["SubmissionPortalTranslator\n(Portal to NMDC schema)"]
+    MongoDB[("MongoDB\n(nmdc database)\n─────────────\nbiosample_set\nstudy_set\ndata_generation_set\ndata_object_set")]
+    Stitching["database_records_stitching\n- generate_data_generation_set\n- generate_biosample_set\n- update INSDC identifiers"]
+    IDMint["RuntimeApiSiteClient\n.mint_id()"]
+    NCBIExport["NCBISubmissionXML\n(BioSample, SRA, GenBank)"]
+  end
+
+  NCBI["NCBI\n(BioSample / SRA / GenBank)"]
+
+  PM -->|"Spreadsheet"| ITS
+  ITS -->|"DW ingest"| DW
+  DW -->|"Snapshot"| GOLD
+  GOLD -->|"SQL sync"| IMG
+  GOLD -->|"SIGS"| JAMO
+
+  GOLD -->|"REST API\n/biosamples\n/projects\n/studies\n/analysis_projects"| GoldClient
+  GoldClient --> GoldTranslator
+  GoldTranslator -->|"gold_study_to_database"| MongoDB
+
+  PM -->|"Spreadsheet\n(manual today)"| PortalUI
+  PortalUI --> PortalDB
+  PortalDB -->|"ingest_metadata_submission"| PortalTranslator
+  PortalTranslator --> MongoDB
+
+  MongoDB --> Stitching
+  Stitching --> IDMint
+  IDMint --> MongoDB
+
+  MongoDB --> PortalETL
+  PortalETL --> PortalDB
+
+  MongoDB --> NCBIExport
+  NCBIExport -->|"XML submission"| NCBI
+
+  GOLD -.->|"Minimal metadata\nsubmission"| NCBI
+
+  MongoDB -->|"API-based\nmetadata transfer"| DanaWS
+  DanaWS -->|"Metadata exchange"| ITS
+  ITS -.->|"Still missing:\nNMDC provenance flag"| GOLD
+
+  style MongoDB fill:#e8f5e9,stroke:#2e7d32
+  style GOLD fill:#e3f2fd,stroke:#1565c0
+  style PortalDB fill:#fff3e0,stroke:#e65100
+  style NCBI fill:#fce4ec,stroke:#c62828
+  style ITS fill:#e3f2fd,stroke:#1565c0
+  style DanaWS fill:#e8f5e9,stroke:#2e7d32
+  </pre>
+</div>
+
+<h2>2. Sequence: GOLD to NMDC ETL Pull</h2>
+<div class="diagram-container">
+  <pre class="mermaid">
+sequenceDiagram
+  participant GOLD as GOLD REST API
+  participant Client as GoldApiClient
+  participant Trans as GoldStudyTranslator
+  participant Mongo as MongoDB (nmdc)
+  participant Stitch as Records Stitching
+  participant Mint as ID Minting
+
+  Note over GOLD, Mint: Dagster Job: gold_study_to_database
+
+  Client->>GOLD: GET /biosamples?study_id=X
+  GOLD-->>Client: biosamples[]
+
+  Client->>GOLD: GET /projects?study_id=X
+  GOLD-->>Client: projects[]
+
+  Client->>GOLD: GET /analysis_projects?study_id=X
+  GOLD-->>Client: analysis_projects[]
+
+  Client->>Trans: raw GOLD data
+  Trans->>Trans: Map fields via gold-to-mixs.sssom
+  Trans->>Trans: Filter by sequencingStrategy<br/>(Metagenome, Metatranscriptome)
+  Trans->>Mongo: Store nmdc:Biosample,<br/>nmdc:NucleotideSequencing,<br/>nmdc:Study
+
+  Note over Mongo, Mint: Dagster Job: database_records_stitching
+
+  Stitch->>Mongo: Fetch existing biosamples
+  Stitch->>GOLD: Fetch GOLD projects for<br/>gold_biosample_identifiers
+  Stitch->>Mint: mint_id("nmdc:NucleotideSequencing", N)
+  Mint-->>Stitch: new IDs
+  Stitch->>Mongo: Create missing<br/>data_generation_set records
+  Stitch->>Mongo: Update INSDC biosample<br/>identifiers from GOLD
+  </pre>
+</div>
+
+<h2>3. Sequence: Portal Submission to NMDC to NCBI</h2>
+<div class="diagram-container">
+  <pre class="mermaid">
+sequenceDiagram
+  participant PM as Project Manager
+  participant Portal as NMDC Submission Portal
+  participant PgDB as PostgreSQL (JSONB)
+  participant PTrans as SubmissionPortalTranslator
+  participant Mongo as MongoDB (nmdc)
+  participant NCBI as NCBI
+
+  PM->>Portal: Fill StudyForm<br/>(GOLDStudyId, JGIStudyId,<br/>NCBIBioProjectId)
+  PM->>Portal: Fill MultiOmicsForm<br/>(jgi_samp_id, jgi_sample_name, ...)
+  Portal->>PgDB: Store submission (JSONB)
+  Portal->>Portal: Validate (Pydantic schemas)
+
+  Note over Portal, PgDB: Status: InProgress then<br/>SubmittedPendingReview then<br/>Approved
+
+  PgDB->>PTrans: Approved submission
+  PTrans->>PTrans: Translate to NMDC schema
+  PTrans->>Mongo: submit_metadata_to_db()
+
+  Note over Mongo, NCBI: Dagster Job: nmdc_study_to_ncbi_submission_export
+
+  Mongo->>Mongo: Fetch biosamples by study_id
+  Mongo->>Mongo: Fetch NucleotideSequencing records
+  Mongo->>Mongo: Fetch DataObjects and<br/>LibraryPreparation
+  Mongo->>NCBI: NCBISubmissionXML<br/>(BioSample + SRA + GenBank)
+  </pre>
+</div>
+
+<h2>4. Sequence: Return Path (NMDC to JGI)</h2>
+<div class="diagram-container">
+  <pre class="mermaid">
+sequenceDiagram
+  participant Mongo as NMDC MongoDB
+  participant WS as Dana's Web Service<br/>(DW5521/DW5784)
+  participant ITS as ITS (LIMS)
+  participant GOLD as GOLD
+
+  Note over Mongo, GOLD: Dana's web service is restored
+
+  Mongo->>WS: NMDC metadata via API
+  WS->>ITS: Metadata transfer
+
+  Note right of ITS: Remaining blocker:<br/>No ITS provenance flag<br/>to identify NMDC-origin<br/>records
+
+  ITS-->>GOLD: Ingestion possible but<br/>no way to distinguish<br/>NMDC-origin metadata
+
+  Note over Mongo, GOLD: Required work:<br/>1. Add ITS provenance flag (JGI)<br/>2. Prevent metadata truncation on re-ingest<br/>3. Preserve NMDC enrichment through round-trip
+  </pre>
+</div>
+
+<h2>5. ID Mapping Across Systems</h2>
+<div class="diagram-container">
+  <pre class="mermaid">
+flowchart LR
+  subgraph NMDC
+    NID["nmdc:Biosample\nnmdc:NucleotideSequencing\nnmdc:Study"]
+  end
+
+  subgraph GOLD_IDs["GOLD"]
+    GID["gold_biosample_identifiers\ngold_sequencing_project_identifiers\ngold_study_identifiers"]
+  end
+
+  subgraph NCBI_IDs["NCBI"]
+    NCBIID["insdc_biosample_identifiers\nNCBIBioProjectId\nSRA accessions"]
+  end
+
+  subgraph Other["Other"]
+    IGSN["IGSN identifiers"]
+    EMSL["emsl_biosample_identifiers"]
+  end
+
+  NID <-->|"gold-to-mixs.sssom\n+ manual mapping"| GID
+  NID <-->|"NCBISubmissionXML\n+ update scripts"| NCBIID
+  NID <-..->|"Manual / ambiguous"| IGSN
+  NID <-->|"JSONB field"| EMSL
+  GID <-->|"Minimal submission"| NCBIID
+
+  style NID fill:#e8f5e9,stroke:#2e7d32
+  style GID fill:#e3f2fd,stroke:#1565c0
+  style NCBIID fill:#fce4ec,stroke:#c62828
+  </pre>
+</div>
+
+</body>
+</html>
