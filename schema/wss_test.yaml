@@ -854,7 +854,7 @@ classes:
     class_uri: wss_test:Measurement
 metamodel_version: 1.7.0
 source_file: wss_test.yaml
-source_file_date: '2026-03-23T22:20:55'
+source_file_date: '2026-04-09T21:59:32'
 source_file_size: 10040
-generation_date: '2026-03-23T22:21:10'
+generation_date: '2026-04-09T21:59:53'
 
