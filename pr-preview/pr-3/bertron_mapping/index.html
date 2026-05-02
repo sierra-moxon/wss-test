@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://sierra-moxon.github.io/wss-test/bertron_mapping/" rel="canonical"/>
+<link href="../elements/" rel="prev"/>
+<link href="../examples/" rel="next"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.5" name="generator"/>
+<title>Mapping to BERtron - wss-test</title>
+<link href="../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#mapping-to-bertron">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="wss-test" class="md-header__button md-logo" data-md-component="logo" href=".." title="wss-test">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            wss-test
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Mapping to BERtron
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/sierra-moxon/wss-test" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="wss-test" class="md-nav__button md-logo" data-md-component="logo" href=".." title="wss-test">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"></path></svg>
+</a>
+    wss-test
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/sierra-moxon/wss-test" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../elements/">
+<span class="md-ellipsis">
+    
+  
+    Schema
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Mapping to BERtron
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Mapping to BERtron
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow">
+<span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bertron-mappings">
+<span class="md-ellipsis">
+      
+        BERtron Mappings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#class-mappings">
+<span class="md-ellipsis">
+      
+        Class mappings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slot-mappings">
+<span class="md-ellipsis">
+      
+        Slot mappings
+      
+    </span>
+</a>
+<nav aria-label="Slot mappings" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slots-inherited-from-bertron">
+<span class="md-ellipsis">
+      
+        Slots inherited from BERtron
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slots-on-attribute-maps-to-bertronattribute">
+<span class="md-ellipsis">
+      
+        Slots on Attribute (maps to bertron:Attribute)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wss-test-extension-slots-on-variable">
+<span class="md-ellipsis">
+      
+        wss-test extension slots on Variable
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wss-test-extension-slots-on-measurement">
+<span class="md-ellipsis">
+      
+        wss-test extension slots on Measurement
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#domain-container-slots">
+<span class="md-ellipsis">
+      
+        Domain container slots
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-rationale">
+<span class="md-ellipsis">
+      
+        Design rationale
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/">
+<span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../artifacts/">
+<span class="md-ellipsis">
+    
+  
+    Artifacts
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../about/">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow">
+<span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bertron-mappings">
+<span class="md-ellipsis">
+      
+        BERtron Mappings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#class-mappings">
+<span class="md-ellipsis">
+      
+        Class mappings
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slot-mappings">
+<span class="md-ellipsis">
+      
+        Slot mappings
+      
+    </span>
+</a>
+<nav aria-label="Slot mappings" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slots-inherited-from-bertron">
+<span class="md-ellipsis">
+      
+        Slots inherited from BERtron
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#slots-on-attribute-maps-to-bertronattribute">
+<span class="md-ellipsis">
+      
+        Slots on Attribute (maps to bertron:Attribute)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wss-test-extension-slots-on-variable">
+<span class="md-ellipsis">
+      
+        wss-test extension slots on Variable
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#wss-test-extension-slots-on-measurement">
+<span class="md-ellipsis">
+      
+        wss-test extension slots on Measurement
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#domain-container-slots">
+<span class="md-ellipsis">
+      
+        Domain container slots
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-rationale">
+<span class="md-ellipsis">
+      
+        Design rationale
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="mapping-to-bertron">Mapping to BERtron</h1>
+<p>This page documents how each element in the wss-test schema maps to the
+<a href="https://github.com/ber-data/bertron-schema">BERtron common data model</a>.
+BERtron provides the foundational types (<code>DataCollection</code>, <code>Entity</code>, <code>Attribute</code>,
+<code>AttributeValue</code>, <code>QuantityValue</code>, <code>TextValue</code>); wss-test extends them with
+environmental measurement provenance and variable semantics.</p>
+<h2 id="data-flow">Data Flow</h2>
+<p>How data is organized at runtime — Dataset contains Variables and Samples,
+Samples contain Measurements, each Measurement references a Variable.</p>
+<pre class="mermaid"><code>graph TD
+    Dataset["&lt;b&gt;Dataset&lt;/b&gt;&lt;br/&gt;&lt;i&gt;maps to bertron:DataCollection&lt;/i&gt;"]
+    Variable["&lt;b&gt;Variable&lt;/b&gt;&lt;br/&gt;&lt;i&gt;extends bertron:Attribute&lt;/i&gt;&lt;br/&gt;id, label, expression_basis,&lt;br/&gt;default_unit, missing_value_code"]
+    Sample["&lt;b&gt;Sample&lt;/b&gt;&lt;br/&gt;&lt;i&gt;maps to bertron:Entity&lt;/i&gt;&lt;br/&gt;site_code, medium, replicate"]
+    Measurement["&lt;b&gt;Measurement&lt;/b&gt;&lt;br/&gt;&lt;i&gt;extends bertron:QuantityValue&lt;/i&gt;&lt;br/&gt;numeric_value, unit, method_id,&lt;br/&gt;flag, datetime_measured, statistic,&lt;br/&gt;temporal_aggregation, reported_precision, notes"]
+
+    Dataset -- "variables[]" --&gt; Variable
+    Dataset -- "samples[]" --&gt; Sample
+    Sample -- "measurements[]" --&gt; Measurement
+    Measurement -. "attribute" .-&gt; Variable</code></pre>
+<h2 id="bertron-mappings">BERtron Mappings</h2>
+<p>How each wss-test class maps to or extends a BERtron base type. Slots
+prefixed with <strong>+</strong> are wss-test additions that have no BERtron equivalent.</p>
+<pre class="mermaid"><code>graph LR
+    subgraph BERtron
+        DC["DataCollection&lt;br/&gt;id, title, description"]
+        Entity["Entity&lt;br/&gt;id, name, properties[]"]
+        Attribute["Attribute&lt;br/&gt;id, label"]
+        AV["AttributeValue &lt;i&gt;(abstract)&lt;/i&gt;&lt;br/&gt;attribute, raw_value"]
+        QV["QuantityValue&lt;br/&gt;numeric_value, unit, unit_cv_id"]
+        TV["TextValue&lt;br/&gt;value, value_cv_id"]
+        AV --&gt; QV
+        AV --&gt; TV
+    end
+
+    subgraph wss-test
+        Dataset["&lt;b&gt;Dataset&lt;/b&gt;&lt;br/&gt;+ variables[], samples[]"]
+        Sample["&lt;b&gt;Sample&lt;/b&gt;&lt;br/&gt;+ site_code, medium,&lt;br/&gt;replicate, measurements[]"]
+        Variable["&lt;b&gt;Variable&lt;/b&gt;&lt;br/&gt;+ expression_basis,&lt;br/&gt;default_unit, missing_value_code"]
+        Measurement["&lt;b&gt;Measurement&lt;/b&gt;&lt;br/&gt;+ method_id, flag,&lt;br/&gt;datetime_measured, statistic,&lt;br/&gt;temporal_aggregation,&lt;br/&gt;reported_precision, notes"]
+    end
+
+    DC -- "maps to" --&gt; Dataset
+    Entity -- "maps to" --&gt; Sample
+    Attribute -- "extends" --&gt; Variable
+    QV -- "extends" --&gt; Measurement</code></pre>
+<h2 id="class-mappings">Class mappings</h2>
+<table>
+<thead>
+<tr>
+<th>wss-test class</th>
+<th>BERtron class</th>
+<th>Relationship</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Attribute</code></td>
+<td><code>bertron:Attribute</code></td>
+<td>exact mapping</td>
+<td>Mirrored locally with <code>mappings: [bertron:Attribute]</code></td>
+</tr>
+<tr>
+<td><code>AttributeValue</code></td>
+<td><code>bertron:AttributeValue</code></td>
+<td>exact mapping</td>
+<td>Abstract base for all value types</td>
+</tr>
+<tr>
+<td><code>QuantityValue</code></td>
+<td><code>bertron:QuantityValue</code></td>
+<td>exact mapping</td>
+<td>Numeric value with unit; is_a <code>AttributeValue</code></td>
+</tr>
+<tr>
+<td><code>TextValue</code></td>
+<td><code>bertron:TextValue</code></td>
+<td>exact mapping</td>
+<td>Text value with optional CV term; is_a <code>AttributeValue</code></td>
+</tr>
+<tr>
+<td><code>Variable</code></td>
+<td><code>bertron:Attribute</code></td>
+<td>extension</td>
+<td>is_a <code>Attribute</code>; inherits <code>id</code> and <code>label</code>; adds expression_basis, default_unit, missing_value_code</td>
+</tr>
+<tr>
+<td><code>Measurement</code></td>
+<td><code>bertron:QuantityValue</code></td>
+<td>extension</td>
+<td>is_a <code>QuantityValue</code>; adds method_id, flag, datetime_measured, statistic, temporal_aggregation, reported_precision, notes</td>
+</tr>
+<tr>
+<td><code>Dataset</code></td>
+<td><code>bertron:DataCollection</code></td>
+<td>mapping</td>
+<td>Maps to DataCollection (<code>id</code>, <code>title</code>, <code>description</code>); adds <code>variables[]</code> and <code>samples[]</code></td>
+</tr>
+<tr>
+<td><code>Sample</code></td>
+<td><code>bertron:Entity</code></td>
+<td>mapping</td>
+<td>Maps to Entity (<code>id</code>, <code>name</code>, <code>properties[]</code>); replaces generic properties with typed <code>site_code</code>, <code>medium</code>, <code>replicate</code>, <code>measurements[]</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="slot-mappings">Slot mappings</h2>
+<h3 id="slots-inherited-from-bertron">Slots inherited from BERtron</h3>
+<p>These slots map directly to BERtron and carry the same semantics.</p>
+<table>
+<thead>
+<tr>
+<th>wss-test slot</th>
+<th>BERtron slot</th>
+<th>Defined on</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>attribute</code></td>
+<td><code>bertron:attribute</code></td>
+<td>AttributeValue</td>
+<td>Attribute</td>
+<td>The attribute being represented</td>
+</tr>
+<tr>
+<td><code>raw_value</code></td>
+<td><code>bertron:raw_value</code></td>
+<td>AttributeValue</td>
+<td>string</td>
+<td>Un-normalized atomic value as a string</td>
+</tr>
+<tr>
+<td><code>numeric_value</code></td>
+<td><code>bertron:numeric_value</code></td>
+<td>QuantityValue</td>
+<td>float</td>
+<td>The numerical part of a quantity</td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td><code>bertron:unit</code></td>
+<td>QuantityValue</td>
+<td>string</td>
+<td>Unit of measurement</td>
+</tr>
+<tr>
+<td><code>unit_cv_id</code></td>
+<td><code>bertron:unit_cv_id</code></td>
+<td>QuantityValue</td>
+<td>curie</td>
+<td>Unit expressed as a CURIE from the Unit Ontology</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td><code>bertron:value</code></td>
+<td>TextValue</td>
+<td>string</td>
+<td>The value as a text string</td>
+</tr>
+<tr>
+<td><code>value_cv_id</code></td>
+<td><code>bertron:value_cv_id</code></td>
+<td>TextValue</td>
+<td>curie</td>
+<td>Controlled vocabulary ID for the value</td>
+</tr>
+</tbody>
+</table>
+<h3 id="slots-on-attribute-maps-to-bertronattribute">Slots on Attribute (maps to bertron:Attribute)</h3>
+<p>These slots are inherited by <code>Variable</code> (which is_a <code>Attribute</code>). In particular,
+<code>label</code> serves as the human-readable name for each Variable (e.g. "dissolved organic carbon").</p>
+<table>
+<thead>
+<tr>
+<th>wss-test slot</th>
+<th>BERtron slot</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><em>(same concept)</em></td>
+<td>string</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><em>(same concept)</em></td>
+<td>string</td>
+<td>Human-readable name for the attribute or variable (e.g. "dissolved organic carbon")</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wss-test-extension-slots-on-variable">wss-test extension slots on Variable</h3>
+<p>These slots are added by wss-test and have <strong>no BERtron equivalent</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>expression_basis</code></td>
+<td>string</td>
+<td>Chemical expression basis (e.g. as dissolved carbon)</td>
+</tr>
+<tr>
+<td><code>default_unit</code></td>
+<td>string</td>
+<td>Default unit for this variable</td>
+</tr>
+<tr>
+<td><code>missing_value_code</code></td>
+<td>integer</td>
+<td>Sentinel value used to represent missing data</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wss-test-extension-slots-on-measurement">wss-test extension slots on Measurement</h3>
+<p>These slots are added by wss-test and have <strong>no BERtron equivalent</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>method_id</code></td>
+<td>string</td>
+<td>Identifier for the analytical method</td>
+</tr>
+<tr>
+<td><code>flag</code></td>
+<td>string</td>
+<td>Quality assurance flag</td>
+</tr>
+<tr>
+<td><code>datetime_measured</code></td>
+<td>datetime</td>
+<td>Date and time the measurement was taken</td>
+</tr>
+<tr>
+<td><code>statistic</code></td>
+<td>string</td>
+<td>Summary statistic applied (e.g. mean, median)</td>
+</tr>
+<tr>
+<td><code>temporal_aggregation</code></td>
+<td>string</td>
+<td>Time interval over which the statistic was aggregated (e.g. daily, 15-min)</td>
+</tr>
+<tr>
+<td><code>reported_precision</code></td>
+<td>float</td>
+<td>Precision of the reported result value</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>string</td>
+<td>Free-text notes about the measurement</td>
+</tr>
+</tbody>
+</table>
+<h3 id="domain-container-slots">Domain container slots</h3>
+<p>These slots exist on <code>Dataset</code> (maps to <code>bertron:DataCollection</code>) and <code>Sample</code>
+(maps to <code>bertron:Entity</code>). The base BERtron classes provide <code>id</code>, <code>name</code>/<code>title</code>,
+and <code>description</code>; the slots below are wss-test additions.</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Defined on</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>Dataset, Sample</td>
+<td>string</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Dataset, Sample</td>
+<td>string</td>
+<td>Human-readable name</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Dataset</td>
+<td>string</td>
+<td>Free-text description</td>
+</tr>
+<tr>
+<td><code>variables</code></td>
+<td>Dataset</td>
+<td>Variable[]</td>
+<td>Variable definitions used by measurements</td>
+</tr>
+<tr>
+<td><code>samples</code></td>
+<td>Dataset</td>
+<td>Sample[]</td>
+<td>Samples included in this dataset</td>
+</tr>
+<tr>
+<td><code>site_code</code></td>
+<td>Sample</td>
+<td>string</td>
+<td>Code identifying the sampling site</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>Sample</td>
+<td>string</td>
+<td>Environmental medium sampled (e.g. OCN)</td>
+</tr>
+<tr>
+<td><code>replicate</code></td>
+<td>Sample</td>
+<td>integer</td>
+<td>Replicate number within a site and medium</td>
+</tr>
+<tr>
+<td><code>measurements</code></td>
+<td>Sample</td>
+<td>Measurement[]</td>
+<td>Measurements performed on this sample</td>
+</tr>
+</tbody>
+</table>
+<h2 id="design-rationale">Design rationale</h2>
+<p>wss-test mirrors BERtron types locally (with <code>mappings:</code> annotations) rather
+than importing them directly. This keeps the schema self-contained while
+preserving semantic interoperability through explicit mappings. Any tool that
+understands BERtron can follow the mapping annotations to align wss-test data
+with the broader BERtron ecosystem.</p>
+<p>The extension pattern — <code>Variable is_a Attribute</code> and <code>Measurement is_a
+QuantityValue</code> — means that every wss-test Variable is a valid BERtron
+Attribute and every Measurement is a valid BERtron QuantityValue. Similarly,
+<code>Dataset</code> maps to <code>DataCollection</code> and <code>Sample</code> maps to <code>Entity</code>, providing
+BERtron-compatible containers for the data. Downstream consumers that only
+understand BERtron can safely ignore the additional wss-test slots.</p>
+</article>
+</div>
+<script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<div class="md-progress" data-md-component="progress" role="progressbar"></div>
+<script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.expand", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+</body>
+</html>
